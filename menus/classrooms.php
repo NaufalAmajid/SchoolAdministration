@@ -11,7 +11,7 @@
             <div class="row">
                 <div class="col-sm-4 mx-5">
                     <div class="input-group">
-                        <input type="text" id="classroom" class="form-control" placeholder="tambah kelas ..." />
+                        <input type="text" id="classroom" class="form-control" placeholder="tambah kelas ..." autofocus/>
                         <button class="btn btn-outline-primary" type="button" id="button-classroom" onclick="CreateClassroom()">Simpan</button>
                     </div>
                     <div id="defaultFormControlHelp" class="form-text">

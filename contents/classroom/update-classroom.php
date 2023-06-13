@@ -13,7 +13,7 @@ $type_class = $classroom[1];
 $data = [
     'name_class'   => $name_class,
     'type_class'   => $type_class,
-    'created_by'    => 'Admin',
+    'created_by'    => $_COOKIE['code_user'],
 ];
 
 $category = [

@@ -32,7 +32,7 @@ $data = [
     'code_class'     => 'C' . $new_code_class,
     'name_class'   => $name_class,
     'type_class'   => $type_class,
-    'created_by'    => 'Admin',
+    'created_by'    => $_COOKIE['code_user'],
 ];
 
 // save data to table clas

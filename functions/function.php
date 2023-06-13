@@ -58,3 +58,28 @@ function Update($connect, $tabel, $data, $category)
     $result = mysqli_query($connect, $sql);
     return $result;
 }
+
+function ExecuteSelect($connect, $sql)
+{
+    $result = mysqli_query($connect, $sql);
+    $row = [];
+    while ($data = mysqli_fetch_array($result)) {
+        $row[] = $data;
+    }
+    return $row;
+}
+
+function FormatRupiah($nominal)
+{
+    $rupiah = number_format($nominal, 0, ',', '.');
+    return $rupiah;
+}
+
+function CompressForm($data = [])
+{
+    $send = [];
+    foreach ($data as $key => $value) {
+        $send[$value['name']] = $value['value'];
+    }
+    return $send;
+}

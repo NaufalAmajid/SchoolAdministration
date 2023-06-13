@@ -181,7 +181,12 @@ session_start();
                                 timer: 2000,
                                 showConfirmButton: false,
                                 allowOutsideClick: false
+                            }).then((result) => {
+                                if (result.dismiss === Swal.DismissReason.timer) {
+                                    window.location.href = 'login.php';
+                                }
                             })
+
                         }
                     }
                 })

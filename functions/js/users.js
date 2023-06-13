@@ -68,3 +68,38 @@ function CreateUsers() {
         }
     });
 }
+
+
+function NonActiveUser(id) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You want to non active this user?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: 'Yes, non active it!'
+    }).then((result) => {
+        if (result.value) {
+            $.ajax({
+                url: "contents/users/non-active-users.php",
+                type: "POST",
+                data: { id: id },
+                success: function (data) {
+                    if (data == 'success') {
+                        ListUsers();
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            html: data,
+                            timer: 2000,
+                            showConfirmButton: false,
+                            allowOutsideClick: false
+                        });
+                    }
+                }
+            });
+        }
+    });
+}

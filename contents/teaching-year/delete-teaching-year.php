@@ -4,7 +4,7 @@ include '../../functions/function.php';
 $connect = Connection();
 
 $category = ['id' => $_POST['id']];
-$data     = ['isactive' => 0, 'created_by' => 'Admin'];
+$data     = ['isactive' => 0, 'created_by' => $_COOKIE['code_user']];
 $delete   = Update($connect, 'teaching_year', $data, $category);
 
 if ($delete) {

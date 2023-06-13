@@ -24,7 +24,7 @@ if (strlen($new_code_year) == 1) {
 $data = [
     'code_year'     => 'TY' . $new_code_year,
     'description'   => $_POST['description'],
-    'created_by'    => 'Admin',
+    'created_by'    => $_COOKIE['code_user'],
 ];
 
 // save data to table teaching_year

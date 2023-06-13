@@ -5,7 +5,7 @@ $connect = Connection();
 
 $data = [
     'description'   => $_POST['description'],
-    'created_by'    => 'Admin',
+    'created_by'    => $_COOKIE['code_user'],
 ];
 
 $category = [

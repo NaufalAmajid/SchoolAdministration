@@ -11,7 +11,7 @@
             <div class="row">
                 <div class="col-sm-4 mx-5">
                     <div class="input-group">
-                        <input type="text" id="teaching-year" class="form-control" placeholder="tambah tahun ajaran ..." />
+                        <input type="text" id="teaching-year" class="form-control" placeholder="tambah tahun ajaran ..." autofocus/>
                         <button class="btn btn-outline-primary" type="button" id="button-teaching-year" onclick="CreateTeachingYear()">Simpan</button>
                     </div>
                 </div>

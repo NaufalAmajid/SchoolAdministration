@@ -1,24 +1,75 @@
 <div class="row">
-    <div class="col-lg-8 mb-4 order-0">
+    <div class="col-lg-12 mb-4 order-0">
         <div class="card">
-            <div class="d-flex align-items-end row">
-                <div class="col-sm-7">
-                    <div class="card-body">
-                        <h5 class="card-title text-primary">Payment Type 🎉</h5>
-                        <p class="mb-4">
-                            You have done <span class="fw-bold">72%</span> more sales today. Check your new badge in
-                            your profile.
-                        </p>
-
-                        <a href="javascript:;" class="btn btn-sm btn-outline-primary">View Badges</a>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card-header">
+                        <h5 class="card-header text-primary">Data Jenis Pembayaran</h5>
                     </div>
                 </div>
-                <div class="col-sm-5 text-center text-sm-left">
-                    <div class="card-body pb-0 px-0 px-md-4">
-                        <img src="libraries/assets/img/illustrations/man-with-laptop-light.png" height="140" alt="View Badge User" data-app-dark-img="illustrations/man-with-laptop-dark.png" data-app-light-img="illustrations/man-with-laptop-light.png" />
+            </div>
+            <div class="row mb-3">
+                <div class="col-lg-11 mx-5">
+                    <form id="form-payment-type">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label for="description" class="form-label">Nama Pembayaran</label>
+                                <input type="text" id="description" name="description" class="form-control" placeholder="nama pembayaran..." autofocus required />
+                            </div>
+                            <div class="col-lg-3">
+                                <label for="type_payment" class="form-label">Tipe Payment</label>
+                                <select name="type_payment" id="type_payment" class="form-control">
+                                    <option value="">- Pilih Tipe Pembayaran -</option>
+                                    <option value="wajib">Wajib</option>
+                                    <option value="optional">Optional</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-2">
+                                <label for="nominal" class="form-label">Nominal</label>
+                                <input type="text" id="nominal" name="nominal" class="form-control" placeholder="nominal..." required />
+                            </div>
+                            <div class="col-lg-2">
+                                <label for="button-save" class="form-label"></label>
+                                <div class="my-1">
+                                    <button type="button" onclick="AddPaymentType()" class="btn btn-info"><span class="tf-icons bx bx-save"></span> Simpan</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="d-flex align-items-end row">
+                <div class="col-sm-12">
+                    <div class="card-body">
+                        <div class="table-responsive text-nowrap">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Deskripsi</th>
+                                        <th>Tipe Pembayaran</th>
+                                        <th>Nominal</th>
+                                        <th>Pembuat</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-border-bottom-0" id="list-payment-type">
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script src="functions/js/payment-type.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#nominal').on('keyup', function() {
+            // format rupiah
+            $(this).val(FormatRupiah($(this).val()));
+        });
+        ListPaymentType();
+    });
+</script>

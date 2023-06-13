@@ -55,6 +55,7 @@ $subMasterData = ['teachings-year', 'classrooms', 'students', 'payment-type', 'u
   <script src="libraries/assets/js/config.js"></script>
   <script src="libraries/assets/vendor/libs/jquery/jquery.js"></script>
   <script src="libraries/assets/js/sweetalert2@11.js"></script>
+  <script src="functions/function.js"></script>
 </head>
 
 <body>
