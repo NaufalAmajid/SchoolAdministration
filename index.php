@@ -1,8 +1,13 @@
 <?php
-// include 'functions/connection.php';
+
+if (!isset($_COOKIE['code_user'])) {
+  header('location: login.php');
+}
+
+date_default_timezone_set('Asia/Jakarta');
 error_reporting(0);
-session_start();
 include 'functions/sidebar.php';
+include 'functions/function.php';
 
 $menu = $_GET['menu'];
 $subMasterData = ['teachings-year', 'classrooms', 'students', 'payment-type', 'users'];
@@ -48,6 +53,8 @@ $subMasterData = ['teachings-year', 'classrooms', 'students', 'payment-type', 'u
   <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
   <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
   <script src="libraries/assets/js/config.js"></script>
+  <script src="libraries/assets/vendor/libs/jquery/jquery.js"></script>
+  <script src="libraries/assets/js/sweetalert2@11.js"></script>
 </head>
 
 <body>
@@ -201,7 +208,7 @@ $subMasterData = ['teachings-year', 'classrooms', 'students', 'payment-type', 'u
           <li class="menu-header small text-uppercase"><span class="menu-header-text">Authentications</span></li>
           <!-- Cards -->
           <li class="menu-item">
-            <a href="cards-basic.html" class="menu-link">
+            <a href="functions/logout.php" class="menu-link">
               <i class="menu-icon tf-icons bx bx-log-out"></i>
               <div data-i18n="Basic">Logout</div>
             </a>
@@ -226,7 +233,7 @@ $subMasterData = ['teachings-year', 'classrooms', 'students', 'payment-type', 'u
             <ul class="navbar-nav flex-row align-items-center ms-auto">
               <!-- Place this tag where you want the button to render. -->
               <li class="nav-item lh-1 me-3">
-                <span>username</span>
+                <span><?= $_COOKIE['name'] ?></span>
               </li>
 
               <!-- User -->
@@ -246,8 +253,8 @@ $subMasterData = ['teachings-year', 'classrooms', 'students', 'payment-type', 'u
                           </div>
                         </div>
                         <div class="flex-grow-1">
-                          <span class="fw-semibold d-block">John Doe</span>
-                          <small class="text-muted">Admin</small>
+                          <span class="fw-semibold d-block"><?= $_COOKIE['username'] ?></span>
+                          <small class="text-muted"><?= strtoupper($_COOKIE['role']) ?></small>
                         </div>
                       </div>
                     </a>
@@ -271,7 +278,7 @@ $subMasterData = ['teachings-year', 'classrooms', 'students', 'payment-type', 'u
                     <div class="dropdown-divider"></div>
                   </li>
                   <li>
-                    <a class="dropdown-item" href="auth-login-basic.html">
+                    <a class="dropdown-item" href="functions/logout.php">
                       <i class="bx bx-power-off me-2"></i>
                       <span class="align-middle">Log Out</span>
                     </a>
@@ -329,7 +336,6 @@ $subMasterData = ['teachings-year', 'classrooms', 'students', 'payment-type', 'u
 
   <!-- Core JS -->
   <!-- build:js libraries/assets/vendor/js/core.js -->
-  <script src="libraries/assets/vendor/libs/jquery/jquery.js"></script>
   <script src="libraries/assets/vendor/libs/popper/popper.js"></script>
   <script src="libraries/assets/vendor/js/bootstrap.js"></script>
   <script src="libraries/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>

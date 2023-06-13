@@ -9,10 +9,10 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-3 mx-5">
+                <div class="col-sm-4 mx-5">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="tambah tahun ajaran ..." />
-                        <button class="btn btn-outline-primary" type="button" id="button-teaching-year">Simpan</button>
+                        <input type="text" id="teaching-year" class="form-control" placeholder="tambah tahun ajaran ..." />
+                        <button class="btn btn-outline-primary" type="button" id="button-teaching-year" onclick="CreateTeachingYear()">Simpan</button>
                     </div>
                 </div>
             </div>
@@ -24,18 +24,12 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Description</th>
-                                        <th>Create By</th>
+                                        <th>Deskripsi</th>
+                                        <th>Pembuat</th>
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody class="table-border-bottom-0">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>2022-2023</td>
-                                        <td>test</td>
-                                        <td><button>edit</button></td>
-                                    </tr>
+                                <tbody class="table-border-bottom-0" id="list-teaching-year">
                                 </tbody>
                             </table>
                         </div>
@@ -45,3 +39,9 @@
         </div>
     </div>
 </div>
+<script src="functions/js/teaching-year.js"></script>
+<script>
+    $(document).ready(function() {
+        ListTeachingYear();
+    });
+</script>
