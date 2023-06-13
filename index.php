@@ -53,12 +53,36 @@ $subMasterData = ['teachings-year', 'classrooms', 'students', 'payment-type', 'u
   <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
   <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
   <script src="libraries/assets/js/config.js"></script>
-  <script src="libraries/assets/vendor/libs/jquery/jquery.js"></script>
+  <script src="libraries/assets/vendor/libs/jquery/jquery-3.5.1.js"></script>
+  <!-- datatable -->
+  <link rel="stylesheet" href="libraries/assets/vendor/libs/datatables/jquery.dataTables.min.css" />
+  <link rel="stylesheet" href="libraries/assets/vendor/libs/datatables/buttons.dataTables.min.css" />
+  <script src="libraries/assets/vendor/libs/datatables/jquery.dataTables.min.js"></script>
+  <script src="libraries/assets/vendor/libs/datatables/dataTables.buttons.min.js"></script>
+  <script src="libraries/assets/vendor/libs/datatables/jszip.min.js"></script>
+  <script src="libraries/assets/vendor/libs/datatables/pdfmake.min.js"></script>
+  <script src="libraries/assets/vendor/libs/datatables/vfs_fonts.js"></script>
+  <script src="libraries/assets/vendor/libs/datatables/buttons.html5.min.js"></script>
+  <script src="libraries/assets/vendor/libs/datatables/buttons.print.min.js"></script>
+  <!-- end datatable -->
   <script src="libraries/assets/js/sweetalert2@11.js"></script>
   <script src="functions/function.js"></script>
+  <script src="libraries/assets/js/ui-toasts.js"></script>
 </head>
 
 <body>
+
+  <!-- ALERT -->
+  <div id="alert-global" class="bs-toast toast toast-placement-ex m-2 fade top-0 start-50 translate-middle-x hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="1000">
+    <div class="toast-header">
+      <i class="bx bx-bell me-2"></i>
+      <div class="me-auto fw-semibold" id="alert-title-global"></div>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body" id="alert-body-global"></div>
+  </div>
+  <!-- END ALERT -->
+
   <!-- Layout wrapper -->
   <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">

@@ -2,10 +2,15 @@
 include '../../functions/function.php';
 
 $connect = Connection();
+
+// data to update
+$select = "SELECT * FROM students WHERE id = '$_POST[id]'";
+$execute = mysqli_query($connect, $select);
+$row = mysqli_fetch_array($execute);
 ?>
 <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content">
-        <form id="form-create-student">
+        <form id="form-edit-student">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel4">Form Tambah Siswa</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -14,21 +19,21 @@ $connect = Connection();
                 <div class="row g-3 mb-4">
                     <div class="col mb-0">
                         <label for="nisn_student" class="form-label">NISN</label>
-                        <input type="text" id="nisn_student" name="nisn_student" class="form-control" placeholder="masukkan nisn..." autocomplete="off" />
+                        <input type="text" id="nisn_student" name="nisn_student" class="form-control" value="<?= $row['nisn_student'] ?>" placeholder="masukkan nisn..." autocomplete="off" />
                     </div>
                     <div class="col mb-0">
                         <label for="name_student" class="form-label">Nama Siswa</label>
-                        <input type="text" id="name_student" name="name_student" class="form-control" placeholder="masukkan nama lengkap..." autocomplete="off" />
+                        <input type="text" id="name_student" name="name_student" class="form-control" value="<?= $row['name_student'] ?>" placeholder="masukkan nama lengkap..." autocomplete="off" />
                     </div>
                     <div class="col mb-0">
                         <small class="text-light fw-semibold">Jenis Kelamin</small>
                         <div class="row g-2 mt-2">
                             <div class="col mb-0 form-check">
-                                <input name="gender_student" class="form-check-input" type="radio" value="1" id="men" checked />
+                                <input name="gender_student" class="form-check-input" type="radio" value="1" id="men" <?= $row['gender_student'] == '1' ? 'checked' : '' ?> />
                                 <label class="form-check-label" for="men">Laki - laki</label>
                             </div>
                             <div class="col mb-0 form-check" style="margin-left: -130px;">
-                                <input name="gender_student" class="form-check-input" type="radio" value="2" id="women" />
+                                <input name="gender_student" class="form-check-input" type="radio" value="2" id="women" <?= $row['gender_student'] == '2' ? 'checked' : '' ?>/>
                                 <label class="form-check-label" for="women">Perempuan</label>
                             </div>
                         </div>
@@ -37,17 +42,17 @@ $connect = Connection();
                 <div class="row g-3 mb-2">
                     <div class="col mb-0">
                         <label for="date_birth_student" class="form-label">Tanggal Lahir Siswa</label>
-                        <input type="date" id="date_birth_student" name="date_birth_student" class="form-control" autocomplete="off" />
+                        <input type="date" id="date_birth_student" name="date_birth_student" class="form-control" autocomplete="off" value="<?= $row['date_birth_student'] ?>" />
                     </div>
                     <div class="col mb-0">
                         <label for="parent_student" class="form-label">Nama Orang Tua</label>
-                        <input type="text" id="parent_student" name="parent_student" class="form-control" placeholder="nama orang tua..." autocomplete="off" />
+                        <input type="text" id="parent_student" name="parent_student" class="form-control" placeholder="nama orang tua..." value="<?= $row['parent_student'] ?>" autocomplete="off" />
                     </div>
                     <div class="col mb-0">
                         <label for="phone_student" class="form-label">Telephone Orang Tua</label>
                         <div class="input-group">
                             <span class="input-group-text" id="basic-phone-student">+62</span>
-                            <input type="text" id="phone_student" name="phone_student" class="form-control" placeholder="telephone orang tua..." autocomplete="off" />
+                            <input type="text" id="phone_student" name="phone_student" class="form-control" placeholder="telephone orang tua..." value="<?= $row['phone_student'] ?>" autocomplete="off" />
                         </div>
                         <div id="defaultFormControlHelp" class="form-text">
                             <i>*format pengisian: 8123456789</i>
@@ -69,7 +74,7 @@ $connect = Connection();
                             <?php foreach ($rowClassroom as $name => $type) : ?>
                                 <optgroup label="<?= $name ?>">
                                     <?php foreach ($type as $val) : ?>
-                                        <option value="<?= $val['code_class'] ?>"><?= $val['name_class'] . '-' . $val['type_class'] ?></option>
+                                        <option value="<?= $val['code_class'] ?>" <?= $row['code_class'] == $val['code_class'] ? 'selected' : '' ?>><?= $val['name_class'] . '-' . $val['type_class'] ?></option>
                                     <?php endforeach; ?>
                                 </optgroup>
                             <?php endforeach; ?>
@@ -83,13 +88,13 @@ $connect = Connection();
                             $teachingyear = ExecuteSelect($connect, "SELECT * FROM teaching_year WHERE isactive = '1' ORDER BY description ASC");
                             ?>
                             <?php foreach ($teachingyear as $year) : ?>
-                                <option value="<?= $year['code_year'] ?>"><?= $year['description'] ?></option>
+                                <option value="<?= $year['code_year'] ?>" <?= $row['code_year'] == $year['code_year'] ? 'selected' : '' ?>><?= $year['description'] ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
                     <div class="col mb-0">
                         <label for="address_student" class="form-label">Alamat</label>
-                        <textarea name="address_student" id="address_student" class="form-control" placeholder="masukkan alamat..." autocomplete="off"></textarea>
+                        <textarea name="address_student" id="address_student" class="form-control" placeholder="masukkan alamat..." autocomplete="off"><?= $row['address_student'] ?></textarea>
                     </div>
                 </div>
             </div>
@@ -97,7 +102,7 @@ $connect = Connection();
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="button-cancel-modal-student">
                     Batal
                 </button>
-                <button type="button" class="btn btn-primary" onclick="CreateStudent()"><i class="bx bx-share"></i> Simpan</button>
+                <button type="button" class="btn btn-primary" onclick="UpdateStudent('<?= $row['id'] ?>')"><i class="bx bx-share"></i> Update</button>
             </div>
         </form>
     </div>

@@ -25,3 +25,15 @@ function OpenModal(link, place, data = null) {
         }
     });
 }
+
+
+function AlertGlobal(bg, title, body, time = 2000) {
+    $('#alert-global').removeClass('hide');
+    $('#alert-global').addClass(`bg-${bg} show`);
+    $('#alert-title-global').html(title);
+    $('#alert-body-global').html(body);
+    setTimeout(() => {
+        $('#alert-global').addClass('hide');
+        $('#alert-global').removeClass(`bg-${bg} show`);
+    }, time);
+}

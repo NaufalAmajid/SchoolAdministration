@@ -2,7 +2,8 @@
 include '../../functions/function.php';
 
 $connect = Connection();
-$select  = Select($connect, 'teaching_year', ['isactive' => '1']);
+$query   = "SELECT a.*, b.fullname FROM teaching_year a JOIN users b ON a.created_by = b.code_users WHERE a.isactive = '1' ORDER BY a.description ASC";
+$select  = ExecuteSelect($connect, $query);
 $num     = 1;
 ?>
 
@@ -11,7 +12,7 @@ $num     = 1;
     <tr>
         <td><?= $num++ ?></td>
         <td><?= $val['description'] ?></td>
-        <td><?= $val['created_by'] ?></td>
+        <td><?= $val['fullname'] ?></td>
         <td>
             <div class="dropdown">
                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
