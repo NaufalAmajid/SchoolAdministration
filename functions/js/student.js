@@ -65,11 +65,79 @@ function NonActiveStudent(id) {
     });
 }
 
-function EditStudent(id){
-    OpenModal('contents/student/form-edit-student.php', 'modal-create-student', {id: id});
+function EditStudent(id) {
+    OpenModal('contents/student/form-edit-student.php', 'modal-create-student', { id: id });
 }
 
-function UpdateStudent(id){
+function UpdateStudent(id) {
     var form = $('#form-edit-student').serializeArray();
-    console.log(form);
+    var data = {};
+    var msg = '';
+
+    $(form).each(function (index, obj) {
+        if (obj.value == '') {
+            msg += obj.name + ' is required <br>';
+        } else {
+            data[obj.name] = obj.value;
+        }
+    });
+
+    if (msg != '') {
+        AlertGlobal('danger', 'Peringatan Form Tambah Siswa', msg);
+        return false;
+    }
+
+    data['id'] = id;
+
+    $.ajax({
+        url: 'contents/student/update-student.php',
+        type: 'POST',
+        data: data,
+        success: function (response) {
+            if (response == 'success') {
+                AlertGlobal('info', 'Sukses', 'Berhasil update data siswa');
+                setTimeout(() => {
+                    location.reload();
+                }, 2000)
+            } else {
+                AlertGlobal('danger', 'Peringatan', response);
+            }
+        }
+    })
+}
+
+function GenerateFaker() {
+    var count = $('#input-faker-student').val();
+    if (count == '' || count == 0) {
+        AlertGlobal('danger', 'Peringatan', 'Jumlah data tidak boleh kosong atau 0');
+        return false;
+    }
+    $.ajax({
+        url: 'faker/faker.php',
+        type: 'POST',
+        data: {
+            count: count,
+            fakeStudent: true
+        },
+        beforeSend: function () {
+            Swal.fire({
+                title: 'Loading',
+                html: 'Please wait...',
+                allowOutsideClick: false,
+                showCancelButton: false,
+                showConfirmButton: false,
+                timerProgressBar: true,
+                onBeforeOpen: () => {
+                    Swal.showLoading()
+                },
+            })
+        },
+        success: function (response) {
+            Swal.close();
+            AlertGlobal('success', 'Sukses', `Berhasil menambahkan  ${response} data siswa`);
+            setTimeout(() => {
+                location.reload();
+            }, 1500)
+        }
+    })
 }

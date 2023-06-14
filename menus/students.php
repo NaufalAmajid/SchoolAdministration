@@ -9,7 +9,17 @@
                             Pastikan mengisi data siswa dengan benar.
                         </p>
 
-                        <a href="javascript:;" class="btn btn-sm btn-outline-primary" onclick="OpenModal('contents/student/form-create-student.php', 'modal-create-student')"><span class="tf-icons bx bx-folder-plus"></span>&nbsp; Tambah Siswa</a>
+                        <div class="row g-2">
+                            <div class="col mb-0">
+                                <a href="javascript:;" class="btn btn-sm btn-outline-primary" onclick="OpenModal('contents/student/form-create-student.php', 'modal-create-student')"><span class="tf-icons bx bx-folder-plus"></span>&nbsp; Tambah Siswa</a>
+                            </div>
+                            <div class="col mb-0">
+                                <div class="input-group" style="margin-left: -130px;">
+                                    <input type="number" class="form-control form-control-sm" id="input-faker-student" placeholder="jumlah yang diiginkan ..."/>
+                                    <button class="btn btn-outline-primary btn-sm" type="button" id="button-addon2" onclick="GenerateFaker()"><i class="bx bx-ghost"></i> Fake Data</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-sm-5 text-center text-sm-left">
@@ -60,7 +70,7 @@
                                             <td><?= $s['description'] ?></td>
                                             <td><?= $s['fullname'] ?></td>
                                             <td>
-                                                <div class="btn-group" role="group" aria-label="First group">
+                                                <div class="btn-group" role="group">
                                                     <button type="button" class="btn btn-outline-info" onclick="EditStudent('<?= $s['id'] ?>')">
                                                         <i class="tf-icons bx bx-happy-alt"></i>
                                                     </button>

@@ -1,7 +1,7 @@
 <!-- FORM USERS -->
 <div class="row">
-    <div class="col-lg-12 mb-4">
-        <div class="row mb-2">
+    <div class="col-lg-12">
+        <!-- <div class="row mb-2">
             <div class="col-12">
                 <div class="demo-inline-spacing">
                     <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseUsers" aria-expanded="false" aria-controls="collapseUsers">
@@ -10,7 +10,7 @@
                     </button>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="row">
             <div class="col-12">
                 <div class="collapse" id="collapseUsers">
@@ -69,10 +69,22 @@
 <div class="row">
     <div class="col-lg-12 mb-4 order-0">
         <div class="card">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="card-header">
-                        <h5 class="card-header text-primary">Data Users</h5>
+            <div class="d-flex align-items-end row">
+                <div class="col-sm-7">
+                    <div class="card-body">
+                        <h5 class="card-title text-primary">Data User / Admin 👩🏻‍💻👨🏻‍💻</h5>
+                        <p class="mb-4">
+                            Menu Manajemen User / Admin.
+                        </p>
+
+                        <div class="col mb-0">
+                            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#collapseUsers" aria-expanded="false" aria-controls="collapseUsers"><span class="tf-icons bx bx-user-plus"></span>&nbsp; Tambah User</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5 text-center text-sm-left">
+                    <div class="card-body pb-0 px-0 px-md-4">
+                        <img src="libraries/assets/img/illustrations/users.png" height="160" alt="View Badge User" data-app-dark-img="illustrations/man-with-laptop-dark.png" data-app-light-img="illustrations/man-with-laptop-light.png" />
                     </div>
                 </div>
             </div>

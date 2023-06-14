@@ -13,7 +13,7 @@ $connect = Connection();
             <div class="modal-body">
                 <div class="row g-3 mb-4">
                     <div class="col mb-0">
-                        <label for="nisn_student" class="form-label">NISN</label>
+                        <label for="nisn_student" class="form-label">NISN <?= $mount ?></label>
                         <input type="text" id="nisn_student" name="nisn_student" class="form-control" placeholder="masukkan nisn..." autocomplete="off" />
                     </div>
                     <div class="col mb-0">

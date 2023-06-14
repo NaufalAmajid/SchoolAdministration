@@ -9,7 +9,7 @@ function MenuActive($menu = '')
     }
 }
 
-function MasterData($sub = [])
+function MenuDropdown($sub = [])
 {
     $act = '';
     if (in_array($_GET['menu'], $sub)) {

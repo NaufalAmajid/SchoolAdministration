@@ -11,6 +11,7 @@ include 'functions/function.php';
 
 $menu = $_GET['menu'];
 $subMasterData = ['teachings-year', 'classrooms', 'students', 'payment-type', 'users'];
+$subMenuTransaction = ['dependent', 'payment-act'];
 ?>
 <!DOCTYPE html>
 
@@ -143,7 +144,7 @@ $subMasterData = ['teachings-year', 'classrooms', 'students', 'payment-type', 'u
               <div data-i18n="Analytics">Dashboard</div>
             </a>
           </li>
-          <li class="menu-item <?= MasterData($subMasterData) ?>">
+          <li class="menu-item <?= MenuDropdown($subMasterData) ?>">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
               <i class="menu-icon tf-icons bx bx-layout"></i>
               <div data-i18n="Layouts">Master Data</div>
@@ -182,25 +183,20 @@ $subMasterData = ['teachings-year', 'classrooms', 'students', 'payment-type', 'u
           <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Menu</span>
           </li>
-          <li class="menu-item">
+          <li class="menu-item <?= MenuDropdown($subMenuTransaction) ?>">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
               <i class="menu-icon tf-icons bx bx-credit-card"></i>
               <div data-i18n="Account Settings">Transaksi</div>
             </a>
             <ul class="menu-sub">
-              <li class="menu-item">
-                <a href="pages-account-settings-account.html" class="menu-link">
-                  <div data-i18n="Account">Account</div>
+              <li class="menu-item <?= MenuActive('dependent') ?>">
+                <a href="?menu=dependent" class="menu-link">
+                  <div data-i18n="Account">Tanggungan</div>
                 </a>
               </li>
-              <li class="menu-item">
-                <a href="pages-account-settings-notifications.html" class="menu-link">
-                  <div data-i18n="Notifications">Notifications</div>
-                </a>
-              </li>
-              <li class="menu-item">
-                <a href="pages-account-settings-connections.html" class="menu-link">
-                  <div data-i18n="Connections">Connections</div>
+              <li class="menu-item <?= MenuActive('payment-act') ?>">
+                <a href="?menu=payment-act" class="menu-link">
+                  <div data-i18n="Notifications">Pembayaran</div>
                 </a>
               </li>
             </ul>
@@ -339,8 +335,9 @@ $subMasterData = ['teachings-year', 'classrooms', 'students', 'payment-type', 'u
                 ©
                 <script>
                   document.write(new Date().getFullYear());
-                </script>
-                , made with ❤️ by
+                  </script>
+                  , made with 😎 by
+                  <!-- ❤️ -->
                 <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">Nanzy</a>
               </div>
             </div>

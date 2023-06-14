@@ -9,7 +9,7 @@ $data['created_by']       = $_COOKIE['code_user'];
 
 $check = Select($connect, 'students', ['nisn_student' => $data['nisn_student']]);
 if (count($check) > 0) {
-    echo json_encode('NISN sudah terdaftar');
+    echo 'NISN sudah terdaftar';
 } else {
     $insert = Insert($connect, 'students', $data);
     if ($insert) {
