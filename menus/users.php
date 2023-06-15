@@ -1,16 +1,6 @@
 <!-- FORM USERS -->
 <div class="row">
     <div class="col-lg-12">
-        <!-- <div class="row mb-2">
-            <div class="col-12">
-                <div class="demo-inline-spacing">
-                    <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseUsers" aria-expanded="false" aria-controls="collapseUsers">
-                        <i class="tf-icons bx bx-user-plus"></i>
-                        &nbsp; Add Users
-                    </button>
-                </div>
-            </div>
-        </div> -->
         <div class="row">
             <div class="col-12">
                 <div class="collapse" id="collapseUsers">

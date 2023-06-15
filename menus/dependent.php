@@ -1,3 +1,6 @@
+<?php
+$connect = Connection();
+?>
 <div class="row">
     <div class="col-lg-12 mb-4 order-0">
         <div class="card">
@@ -19,55 +22,65 @@
         </div>
     </div>
 </div>
+<?php
+$query = "SELECT a.code_class,
+            a.name_class,
+            a.type_class,
+            COUNT( b.code_student ) AS total_student 
+            FROM
+            classrooms a
+            RIGHT JOIN students b ON a.code_class = b.code_class 
+            WHERE
+            a.isactive = 1 
+            GROUP BY
+            a.code_class,
+            a.name_class,
+            a.type_class 
+            ORDER BY
+            a.name_class,
+            a.type_class ASC";
+$rows = ExecuteSelect($connect, $query);
+$no   = 1;
+$classroom = [];
+foreach ($rows as $item) {
+    $classroom[$item['name_class']][] = $item;
+}
+?>
 <div class="row">
-    <div class="col-lg-4 col-md-4 order-1">
-        <div class="row">
-            <div class="col-lg-6 col-md-12 col-6 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="card-title d-flex align-items-start justify-content-between">
-                            <div class="avatar flex-shrink-0">
-                                <img src="libraries/assets/img/icons/unicons/paypal.png" alt="chart success" class="rounded" />
-                            </div>
-                            <div class="dropdown">
-                                <button class="btn p-0" type="button" id="cardOpt3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="bx bx-dots-vertical-rounded"></i>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt3">
-                                    <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                                    <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+    <div class="col-lg-12 col-md-4 order-1">
+        <?php foreach ($classroom as $name => $data) : ?>
+            <div class="row">
+                <h5 class="mt-4">Kelas <?= $name ?></h5>
+                <?php foreach ($data as $item) : ?>
+                    <?php
+                    $random = rand(0, 6);
+                    $color = ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'dark'];
+                    ?>
+                    <div class="col-lg-2 col-md-12 col-6 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-title d-flex align-items-start justify-content-between">
+                                    <div class="avatar flex-shrink-0 me-3">
+                                        <span class="avatar-initial rounded bg-label-<?= $color[$random] ?>"><i class="bx bx-smile"></i></span>
+                                    </div>
+                                    <div class="dropdown">
+                                        <?php
+                                        $codeclass = $item['code_class'];
+                                        $nameclass = $item['name_class'] . "-" . $item['type_class'];
+                                        ?>
+                                        <button class="btn p-0" type="button" id="btn-cart-<?= $no++ ?>" onclick="OpenModal('contents/dependent/content-dependent-classroom.php', 'modal-dependent', '<?= $codeclass .'#'. $nameclass ?>')">
+                                            <i class="bx bx-cart"></i>
+                                        </button>
+                                    </div>
                                 </div>
+                                <h3 class="fw-semibold d-block mb-1"><?= $item['name_class'] . '-' . $item['type_class'] ?></h3>
+                                <h6 class="card-title mb-2 text-<?= $color[$random] ?>"><?= $item['total_student'] ?> Siswa</h6>
                             </div>
                         </div>
-                        <span class="fw-semibold d-block mb-1">Kelas III-A</span>
-                        <h6 class="card-title mb-2 text-info">120 Siswa</h6>
-                        <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +72.80%</small>
                     </div>
-                </div>
+                <?php endforeach; ?>
             </div>
-            <div class="col-lg-6 col-md-12 col-6 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="card-title d-flex align-items-start justify-content-between">
-                            <div class="avatar flex-shrink-0">
-                                <img src="libraries/assets/img/icons/unicons/chart-success.png" alt="chart success" class="rounded" />
-                            </div>
-                            <div class="dropdown">
-                                <button class="btn p-0" type="button" id="cardOpt3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="bx bx-dots-vertical-rounded"></i>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt3">
-                                    <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                                    <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                                </div>
-                            </div>
-                        </div>
-                        <span class="fw-semibold d-block mb-1">Profit</span>
-                        <h3 class="card-title mb-2">$12,628</h3>
-                        <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +72.80%</small>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <?php endforeach; ?>
     </div>
 </div>
+<div class="modal fade" id="modal-dependent" tabindex="-1" aria-hidden="true" data-bs-backdrop="static"></div>

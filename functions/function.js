@@ -18,7 +18,7 @@ function OpenModal(link, place, data = null) {
     $.ajax({
         url: link,
         type: 'POST',
-        data: data,
+        data: { data: data },
         success: function (response) {
             $(`#${place}`).html(response);
             $(`#${place}`).modal('show');
