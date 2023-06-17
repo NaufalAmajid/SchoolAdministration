@@ -138,6 +138,7 @@ function GenerateFaker() {
             setTimeout(() => {
                 location.reload();
             }, 1500)
+            // console.log(response);
         }
     })
 }

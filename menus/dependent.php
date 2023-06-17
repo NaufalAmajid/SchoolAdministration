@@ -84,3 +84,4 @@ foreach ($rows as $item) {
     </div>
 </div>
 <div class="modal fade" id="modal-dependent" tabindex="-1" aria-hidden="true" data-bs-backdrop="static"></div>
+<script src="functions/js/dependent.js"></script>
