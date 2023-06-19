@@ -9,6 +9,8 @@ $data = explode('#', $_POST['data']);
     <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel4">Daftar Tagihan Kelas <?= $data[1] ?></h5>
+            <input type="hidden" id="post_code_class" value="<?= $data[1] ?>">
+            <input type="hidden" id="post_name_class" value="<?= $data[0] ?>">
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -37,18 +39,42 @@ $data = explode('#', $_POST['data']);
                     <div class="col mb-0">
                         <label for="dependenting" class="form-label">Ditagihkan Untuk Bulan</label>
                         <div class="input-group">
-                            <input type="month" id="start_month" name="start_month" class="form-control" />
-                            <input type="month" id="end_month" name="end_month" class="form-control" />
+                            <input type="month" id="start_month" value="<?= date('Y-m') ?>" name="start_month" class="form-control" />
+                            <span class="input-group-text">Sampai</span>
+                            <input type="month" id="end_month" value="<?= date('Y-m') ?>" name="end_month" class="form-control" />
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col mt-3">
-                        <button type="button" class="btn btn-success btn-sm" onclick="CreateDependent()"><i class="bx bx-share"></i> Tambahkan</button>
+                        <button type="button" class="btn btn-success btn-sm align-items-end" onclick="CreateDependent()"><i class="bx bx-share"></i> Tambahkan</button>
                     </div>
                 </div>
             </form>
-            <div class="row mt-5"></div>
+            <div class="row mt-3 px-4">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead class="bg-secondary text-white">
+                            <tr>
+                                <td>No.</td>
+                                <td>Tagihan</td>
+                                <td>Nominal</td>
+                                <td>Bulan</td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1.</td>
+                                <td>SPP</td>
+                                <td>25.000</td>
+                                <td>june-2023</td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="button-cancel-modal-student">

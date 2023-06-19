@@ -66,7 +66,7 @@ function NonActiveStudent(id) {
 }
 
 function EditStudent(id) {
-    OpenModal('contents/student/form-edit-student.php', 'modal-create-student', { id: id });
+    OpenModal('contents/student/form-edit-student.php', 'modal-create-student', id);
 }
 
 function UpdateStudent(id) {

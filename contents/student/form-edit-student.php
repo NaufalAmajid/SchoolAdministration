@@ -4,7 +4,7 @@ include '../../functions/function.php';
 $connect = Connection();
 
 // data to update
-$select = "SELECT * FROM students WHERE id = '$_POST[id]'";
+$select = "SELECT * FROM students WHERE id = '$_POST[data]'";
 $execute = mysqli_query($connect, $select);
 $row = mysqli_fetch_array($execute);
 ?>
@@ -33,7 +33,7 @@ $row = mysqli_fetch_array($execute);
                                 <label class="form-check-label" for="men">Laki - laki</label>
                             </div>
                             <div class="col mb-0 form-check" style="margin-left: -130px;">
-                                <input name="gender_student" class="form-check-input" type="radio" value="2" id="women" <?= $row['gender_student'] == '2' ? 'checked' : '' ?>/>
+                                <input name="gender_student" class="form-check-input" type="radio" value="2" id="women" <?= $row['gender_student'] == '2' ? 'checked' : '' ?> />
                                 <label class="form-check-label" for="women">Perempuan</label>
                             </div>
                         </div>

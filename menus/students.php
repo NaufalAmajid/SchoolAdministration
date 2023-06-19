@@ -99,7 +99,6 @@
             buttons: [
                 'copy', 'csv', 'excel', 'pdf', 'print'
             ]
-
         });
     });
 </script>
