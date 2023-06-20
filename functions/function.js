@@ -37,3 +37,22 @@ function AlertGlobal(bg, title, body, time = 2000) {
         $('#alert-global').removeClass(`bg-${bg} show`);
     }, time);
 }
+
+function FormatMonthIndo(month){
+    var monthIndo = [
+        {month: 'Januari', number: '01'},
+        {month: 'Februari', number: '02'},
+        {month: 'Maret', number: '03'},
+        {month: 'April', number: '04'},
+        {month: 'Mei', number: '05'},
+        {month: 'Juni', number: '06'},
+        {month: 'Juli', number: '07'},
+        {month: 'Agustus', number: '08'},
+        {month: 'September', number: '09'},
+        {month: 'Oktober', number: '10'},
+        {month: 'November', number: '11'},
+        {month: 'Desember', number: '12'},
+    ]
+
+    return monthIndo[month - 1].month;
+}

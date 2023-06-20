@@ -9,12 +9,12 @@ $data = explode('#', $_POST['data']);
     <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel4">Daftar Tagihan Kelas <?= $data[1] ?></h5>
-            <input type="hidden" id="post_code_class" value="<?= $data[1] ?>">
-            <input type="hidden" id="post_name_class" value="<?= $data[0] ?>">
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
             <form id="form-create-dependent-class">
+                <input type="hidden" name="post_code_class" value="<?= $data[0] ?>">
+                <input type="hidden" name="post_name_class" value="<?= $data[1] ?>">
                 <div class="row g-3">
                     <div class="col mb-0">
                         <label for="bill_name" class="form-label">Tagihan</label>
@@ -47,7 +47,7 @@ $data = explode('#', $_POST['data']);
                 </div>
                 <div class="row">
                     <div class="col mt-3">
-                        <button type="button" class="btn btn-success btn-sm align-items-end" onclick="CreateDependent()"><i class="bx bx-share"></i> Tambahkan</button>
+                        <button type="button" class="btn btn-success btn-sm align-items-end" id="button-create-dependent" onclick="CreateDependent()"><i class="bx bx-share"></i> Tambahkan</button>
                     </div>
                 </div>
             </form>
@@ -64,13 +64,9 @@ $data = explode('#', $_POST['data']);
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1.</td>
-                                <td>SPP</td>
-                                <td>25.000</td>
-                                <td>june-2023</td>
-                                <td></td>
-                            </tr>
+                            <?php
+                            $querySelectBill = "SELECT a.code_bill,a.code_class,a.code_payment, b.description, b.nominal FROM billing a JOIN payments b ON a.code_payment = b.code_payment JOIN classrooms c ON a.code_class = c.code_class JOIN users d ON a.created_by = d.code_users WHERE a.code_class = '$data[0]' ORDER BY a.code_bill ASC";
+                            ?>
                         </tbody>
                     </table>
                 </div>
