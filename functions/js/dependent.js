@@ -1,14 +1,13 @@
 function CreateDependent() {
     var form = $('#form-create-dependent-class').serializeArray();
-    var bill_name = $('#bill_name').find(':selected').text();
-    var data = {};
+    var sender = {};
     var msg = '';
 
     $(form).each((i, field) => {
         if (field.value == '') {
             msg += field.name + ' is required <br>';
-        }else{
-            data[field.name] = field.value;
+        } else {
+            sender[field.name] = field.value;
         }
     });
 
@@ -30,7 +29,39 @@ function CreateDependent() {
             $('#button-create-dependent').attr('disabled', false);
             $('#form-create-dependent-class')[0].reset();
             var json = JSON.parse(data);
-            console.log(json);
+            AlertGlobal(json.status, 'notifikasi', json.message);
+            $(`#btn-cart-${sender.post_code_class}`).click();
+        }
+    })
+}
+
+function DeleteDependent(id, codeClass) {
+    $('#modal-dependent').modal('hide');
+    Swal.fire({
+        title: 'Apakah anda yakin?',
+        text: "Anda tidak dapat mengembalikan data yang telah dihapus!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Ya, hapus data!',
+        cancelButtonText: 'Tidak, batalkan!',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: "contents/dependent/delete-billing-for-classroom.php",
+                type: "POST",
+                data: {
+                    id: id
+                },
+                success: function (data) {
+                    var json = JSON.parse(data);
+                    AlertGlobal(json.status, 'notifikasi', json.message);
+                    $(`#btn-cart-${codeClass}`).click();
+                }
+            })
+        } else {
+            $('#modal-dependent').modal('show');
         }
     })
 }

@@ -3,6 +3,14 @@ include '../../functions/function.php';
 
 $connect = Connection();
 
+if(!isset($_COOKIE['code_user'])) {
+    echo json_encode([
+        'status' => 'danger',
+        'message' => 'Session expired! Please login again.',
+    ]);
+    exit;
+}
+
 // create code from start month and end month
 $generateStartMonth = explode('-', $_POST['start_month']);
 $generateEndMonth = explode('-', $_POST['end_month']);
@@ -18,33 +26,62 @@ $endMonth = (int) $generateEndMonth[1];
 // create code_bill
 $codeBill = $generateCodeClassPayment . '-' . $generateStartEndMonth;
 
-$dataInsert = [];
+// get students from class
+$getStudents = Select($connect, 'students', ['code_class' => $_POST['post_code_class'], 'isactive' => 1]);
+
+// insert data to table billing and transactions
+$dataInsertBilling = [
+    'code_bill' => $codeBill,
+    'code_class' => $_POST['post_code_class'],
+    'code_payment' => $_POST['bill_name'],
+    'created_by' => $_COOKIE['code_user']
+];
+$dataInsertTransactions = [];
+
+// notifications
 $success = 0;
 $failed = 0;
-for ($i = $startMonth; $i <= $endMonth; $i++) {
 
-    if (strlen($i) == 1) {
-        $i = '0' . $i;
+// insert $dataInsertBilling to table billing
+$insertToBilling = Insert($connect, 'billing', $dataInsertBilling);
+
+// insert data to table transactions
+if ($insertToBilling) {
+
+    foreach ($getStudents as $student) {
+        for ($i = $startMonth; $i <= $endMonth; $i++) {
+            if ($i < 10) {
+                $i = '0' . $i;
+            }
+            $dataInsertTransactions[] = [
+                'code_bill'  => $codeBill . '_' . $i,
+                'code_payment' => $_POST['bill_name'],
+                'code_class' => $_POST['post_code_class'],
+                'code_student' => $student['code_student'],
+            ];
+        }
     }
-    $dataInsert[] = [
-        'code_bill'     => $codeBill . '_' . $i,
-        'code_class'    => $_POST['post_code_class'],
-        'code_payment'  => $_POST['bill_name'],
-        'created_by'     => $_COOKIE['code_user'],
-    ];
 
+    foreach ($dataInsertTransactions as $data) {
+        $insertToTransactions = Insert($connect, 'transactions', $data);
+        if ($insertToTransactions) {
+            $success++;
+        } else {
+            $failed++;
+        }
+    }
+} else {
+    $failed += 1000;
 }
 
-foreach ($dataInsert as $val) {
-    $insert = Insert($connect, 'billing', $val);
-    if ($insert) {
-        $success++;
-    } else {
-        $failed++;
-    }
+if ($success > 0 && $failed == 0) {
+    echo json_encode([
+        'status' => 'success',
+        'message' => 'Berhasil menambahkan tagihan untuk kelas ' . $_POST['post_name_class'] . '!',
+    ]);
+} else {
+    echo json_encode([
+        'status' => 'danger',
+        'message' => 'Gagal menambahkan tagihan untuk kelas ' . $_POST['post_name_class'] . '!',
+    ]);
 }
-
-echo json_encode([
-    'success'   => $success,
-    'failed'    => $failed,
-]);

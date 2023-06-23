@@ -68,7 +68,7 @@ foreach ($rows as $item) {
                                         $codeclass = $item['code_class'];
                                         $nameclass = $item['name_class'] . "-" . $item['type_class'];
                                         ?>
-                                        <button class="btn p-0" type="button" id="btn-cart-<?= $no++ ?>" onclick="OpenModal('contents/dependent/content-dependent-classroom.php', 'modal-dependent', '<?= $codeclass .'#'. $nameclass ?>')">
+                                        <button class="btn p-0" type="button" id="btn-cart-<?= $item['code_class'] ?>" onclick="OpenModal('contents/dependent/content-dependent-classroom.php', 'modal-dependent', '<?= $codeclass .'#'. $nameclass ?>')">
                                             <i class="bx bx-cart"></i>
                                         </button>
                                     </div>

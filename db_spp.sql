@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 20 Jun 2023 pada 15.18
+-- Waktu pembuatan: 23 Jun 2023 pada 18.56
 -- Versi server: 10.4.22-MariaDB
 -- Versi PHP: 8.1.2
 
@@ -31,25 +31,29 @@ CREATE TABLE `billing` (
   `id` int(11) NOT NULL,
   `code_bill` varchar(100) NOT NULL,
   `code_class` varchar(20) NOT NULL,
-  `code_student` varchar(20) NOT NULL,
   `code_payment` varchar(20) NOT NULL,
-  `status_bill` int(11) NOT NULL DEFAULT 0,
   `created_by` varchar(20) NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT current_timestamp()
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `isactive` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `billing`
 --
 
-INSERT INTO `billing` (`id`, `code_bill`, `code_class`, `code_student`, `code_payment`, `status_bill`, `created_by`, `created_at`) VALUES
-(1, 'C01PY01-202306|202312_06', 'C01', '', 'PY01', 0, 'USR01', '2023-06-20 19:50:31'),
-(2, 'C01PY01-202306|202312_07', 'C01', '', 'PY01', 0, 'USR01', '2023-06-20 19:50:31'),
-(3, 'C01PY01-202306|202312_08', 'C01', '', 'PY01', 0, 'USR01', '2023-06-20 19:50:31'),
-(4, 'C01PY01-202306|202312_09', 'C01', '', 'PY01', 0, 'USR01', '2023-06-20 19:50:31'),
-(5, 'C01PY01-202306|202312_10', 'C01', '', 'PY01', 0, 'USR01', '2023-06-20 19:50:32'),
-(6, 'C01PY01-202306|202312_11', 'C01', '', 'PY01', 0, 'USR01', '2023-06-20 19:50:32'),
-(7, 'C01PY01-202306|202312_12', 'C01', '', 'PY01', 0, 'USR01', '2023-06-20 19:50:32');
+INSERT INTO `billing` (`id`, `code_bill`, `code_class`, `code_payment`, `created_by`, `created_at`, `isactive`) VALUES
+(4, 'C04PY01-202306|202308', 'C04', 'PY01', 'USR01', '2023-06-23 23:11:13', 1);
+
+--
+-- Trigger `billing`
+--
+DELIMITER $$
+CREATE TRIGGER `delete_all_transactions` AFTER DELETE ON `billing` FOR EACH ROW BEGIN
+    DELETE FROM transactions
+    WHERE transactions.code_bill LIKE CONCAT('%', OLD.code_bill, '%');
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -160,7 +164,17 @@ INSERT INTO `students` (`id`, `code_student`, `code_class`, `code_year`, `name_s
 (22, 'STD233932', 'C05', 'TY02', 'Gabriella Simanjuntak', '9551079488', 'Darimin Pratama Dr.', '(+62) 856 229 2', 'Kpg. R.M. Said No. 344, Palu 12785, Sulteng', '2009-04-09', '1', '827ccb0eea8a706c4c34a16891f84e7b', 'USR04', '2023-06-20 18:44:16', 1),
 (23, 'STD286278', 'C06', 'TY01', 'Ibrani Sinaga', '9338006666', 'Jessica Suwarno Dr.', '0922 8249 213', 'Gg. Pattimura No. 247, Bandung 16128, NTB', '2021-05-05', '2', '827ccb0eea8a706c4c34a16891f84e7b', 'USR01', '2023-06-20 18:44:16', 1),
 (24, 'STD569877', 'C07', 'TY02', 'Raden Thamrin', '5018495413', 'Zaenab Haryanti dr.', '022 4339 4197', 'Dk. Rajawali Timur No. 115, Langsa 80079, Sultra', '2015-08-09', '2', '827ccb0eea8a706c4c34a16891f84e7b', 'USR03', '2023-06-20 18:44:17', 1),
-(25, 'STD999110', 'C03', 'TY01', 'Sabrina Mansur', '7373875006', 'Joko Haryanti Dr.', '0915 8963 981', 'Kpg. Batako No. 851, Tual 50798, Gorontalo', '2001-01-09', '2', '827ccb0eea8a706c4c34a16891f84e7b', 'USR01', '2023-06-20 18:44:17', 1);
+(25, 'STD999110', 'C03', 'TY01', 'Sabrina Mansur', '7373875006', 'Joko Haryanti Dr.', '0915 8963 981', 'Kpg. Batako No. 851, Tual 50798, Gorontalo', '2001-01-09', '2', '827ccb0eea8a706c4c34a16891f84e7b', 'USR01', '2023-06-20 18:44:17', 1),
+(26, 'STD445377', 'C03', 'TY02', 'Rahmat Mulyani', '2119232235', 'Radika Pertiwi drg.', '(+62) 22 6779 2', 'Ki. Muwardi No. 729, Langsa 28814, Kaltara', '2003-05-20', '1', '827ccb0eea8a706c4c34a16891f84e7b', 'USR03', '2023-06-23 23:03:28', 1),
+(27, 'STD110658', 'C04', 'TY02', 'Lanang Andriani', '8692728332', 'Puspa Palastri dr.', '0624 8751 6096', 'Ki. Barasak No. 84, Tidore Kepulauan 21647, Kepri', '1983-12-01', '2', '827ccb0eea8a706c4c34a16891f84e7b', 'USR03', '2023-06-23 23:03:28', 1),
+(28, 'STD685510', 'C02', 'TY02', 'Artawan Purnawati', '2245709606', 'Kasiran Wahyudin Dr.', '(+62) 650 1101 ', 'Kpg. Baung No. 655, Semarang 27230, Sulut', '2010-03-03', '1', '827ccb0eea8a706c4c34a16891f84e7b', 'USR03', '2023-06-23 23:03:28', 1),
+(29, 'STD740716', 'C01', 'TY01', 'Mursita Wasita', '5744909096', 'Mahesa Novitasari dr', '0859 6904 747', 'Jr. B.Agam Dlm No. 320, Gunungsitoli 24349, NTT', '1993-01-19', '2', '827ccb0eea8a706c4c34a16891f84e7b', 'USR02', '2023-06-23 23:03:29', 1),
+(30, 'STD647843', 'C06', 'TY02', 'Dodo Lazuardi', '4635847077', 'Genta Mandasari Dr.', '020 1788 2717', 'Ki. Bakin No. 599, Banda Aceh 79463, Sumsel', '2008-09-28', '1', '827ccb0eea8a706c4c34a16891f84e7b', 'USR01', '2023-06-23 23:03:30', 1),
+(31, 'STD212962', 'C08', 'TY02', 'Hilda Aryani', '8989535958', 'Reksa Kusumo dr.', '0761 2273 8784', 'Ds. Suniaraja No. 972, Jambi 26379, Pabar', '1973-12-08', '1', '827ccb0eea8a706c4c34a16891f84e7b', 'USR04', '2023-06-23 23:03:31', 1),
+(32, 'STD331888', 'C07', 'TY02', 'Kairav Laksita', '2611830736', 'Muni Hardiansyah Drs', '(+62) 888 6342 ', 'Ds. Baabur Royan No. 920, Bontang 69331, Maluku', '2015-09-25', '1', '827ccb0eea8a706c4c34a16891f84e7b', 'USR02', '2023-06-23 23:03:31', 1),
+(33, 'STD818635', 'C02', 'TY01', 'Tami Laksita', '2448534877', 'Elvina Adriansyah dr', '0670 7879 300', 'Ki. Bagis Utama No. 613, Prabumulih 54562, Jabar', '1989-12-22', '1', '827ccb0eea8a706c4c34a16891f84e7b', 'USR04', '2023-06-23 23:03:32', 1),
+(34, 'STD843755', 'C08', 'TY01', 'Galang Sihombing', '7233257076', 'Aswani Astuti drg.', '(+62) 572 8365 ', 'Psr. Perintis Kemerdekaan No. 190, Sorong 72462, Kalsel', '2019-03-18', '1', '827ccb0eea8a706c4c34a16891f84e7b', 'USR02', '2023-06-23 23:03:32', 1),
+(35, 'STD786977', 'C07', 'TY02', 'Yahya Rajasa', '2960917251', 'Ayu Kurniawan Ir.', '0292 3254 713', 'Kpg. Daan No. 667, Subulussalam 95668, Kalbar', '1978-03-01', '1', '827ccb0eea8a706c4c34a16891f84e7b', 'USR04', '2023-06-23 23:03:32', 1);
 
 -- --------------------------------------------------------
 
@@ -184,6 +198,35 @@ CREATE TABLE `teaching_year` (
 INSERT INTO `teaching_year` (`id`, `code_year`, `description`, `created_by`, `created_at`, `isactive`) VALUES
 (1, 'TY01', '2022-2023', 'USR01', '2023-06-13 16:38:07', 1),
 (2, 'TY02', '2023-2024', 'USR04', '2023-06-13 16:38:44', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `transactions`
+--
+
+CREATE TABLE `transactions` (
+  `id` int(11) NOT NULL,
+  `code_bill` varchar(100) NOT NULL,
+  `code_payment` varchar(20) NOT NULL,
+  `code_class` varchar(20) NOT NULL,
+  `code_student` varchar(20) NOT NULL,
+  `status_bill` int(11) NOT NULL DEFAULT 0,
+  `payment_date` datetime NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `transactions`
+--
+
+INSERT INTO `transactions` (`id`, `code_bill`, `code_payment`, `code_class`, `code_student`, `status_bill`, `payment_date`, `created_at`) VALUES
+(38, 'C04PY01-202306|202308_06', 'PY01', 'C04', 'STD746811', 0, '0000-00-00 00:00:00', '2023-06-23 23:11:13'),
+(39, 'C04PY01-202306|202308_07', 'PY01', 'C04', 'STD746811', 0, '0000-00-00 00:00:00', '2023-06-23 23:11:13'),
+(40, 'C04PY01-202306|202308_08', 'PY01', 'C04', 'STD746811', 0, '0000-00-00 00:00:00', '2023-06-23 23:11:13'),
+(41, 'C04PY01-202306|202308_06', 'PY01', 'C04', 'STD110658', 0, '0000-00-00 00:00:00', '2023-06-23 23:11:13'),
+(42, 'C04PY01-202306|202308_07', 'PY01', 'C04', 'STD110658', 0, '0000-00-00 00:00:00', '2023-06-23 23:11:13'),
+(43, 'C04PY01-202306|202308_08', 'PY01', 'C04', 'STD110658', 0, '0000-00-00 00:00:00', '2023-06-23 23:11:14');
 
 -- --------------------------------------------------------
 
@@ -253,6 +296,12 @@ ALTER TABLE `teaching_year`
   ADD UNIQUE KEY `code` (`code_year`);
 
 --
+-- Indeks untuk tabel `transactions`
+--
+ALTER TABLE `transactions`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
@@ -266,7 +315,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `billing`
 --
 ALTER TABLE `billing`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `classrooms`
@@ -284,13 +333,19 @@ ALTER TABLE `payments`
 -- AUTO_INCREMENT untuk tabel `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT untuk tabel `teaching_year`
 --
 ALTER TABLE `teaching_year`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT untuk tabel `transactions`
+--
+ALTER TABLE `transactions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`

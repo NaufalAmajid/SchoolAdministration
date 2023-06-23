@@ -195,7 +195,7 @@ $subMenuTransaction = ['dependent', 'payment-act'];
                 </a>
               </li>
               <li class="menu-item <?= MenuActive('payment-act') ?>">
-                <a href="?menu=payment-act" class="menu-link">
+                <a href="?menu=payment-act&sub=payment-transaction" class="menu-link">
                   <div data-i18n="Notifications">Pembayaran</div>
                 </a>
               </li>

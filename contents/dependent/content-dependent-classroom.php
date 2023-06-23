@@ -9,7 +9,7 @@ $data = explode('#', $_POST['data']);
     <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel4">Daftar Tagihan Kelas <?= $data[1] ?></h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" class="btn-close" id="btn-close-dependent" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
             <form id="form-create-dependent-class">
@@ -65,8 +65,55 @@ $data = explode('#', $_POST['data']);
                         </thead>
                         <tbody>
                             <?php
-                            $querySelectBill = "SELECT a.code_bill,a.code_class,a.code_payment, b.description, b.nominal FROM billing a JOIN payments b ON a.code_payment = b.code_payment JOIN classrooms c ON a.code_class = c.code_class JOIN users d ON a.created_by = d.code_users WHERE a.code_class = '$data[0]' ORDER BY a.code_bill ASC";
+                            $querySelectBill = "SELECT 
+                                                    a.code_bill, 
+                                                    a.id,
+                                                    a.code_class, 
+                                                    a.code_payment, 
+                                                    b.description, 
+                                                    b.nominal 
+                                                FROM 
+                                                    billing a 
+                                                    JOIN payments b ON a.code_payment = b.code_payment 
+                                                    JOIN classrooms c ON a.code_class = c.code_class 
+                                                    JOIN users d ON a.created_by = d.code_users 
+                                                WHERE 
+                                                    a.code_class = '$data[0]' 
+                                                ORDER BY 
+                                                    a.code_bill ASC";
+                            $exSelectBill = ExecuteSelect($connect, $querySelectBill);
+                            $no = 1;
                             ?>
+                            <?php foreach ($exSelectBill as $bill) : ?>
+                                <?php
+                                $cutCodeBill = substr($bill['code_bill'], strpos($bill['code_bill'], '-') + 1);
+                                $cutCodeBill = explode('|', $cutCodeBill);
+                                $monthStart = substr($cutCodeBill[0], 4);
+                                $monthEnd = substr($cutCodeBill[1], 4);
+                                $yearStart = substr($cutCodeBill[0], 0, 4);
+                                $yearEnd = substr($cutCodeBill[1], 0, 4);
+                                if ($yearStart == $yearEnd) {
+                                    if ($monthStart == $monthEnd) {
+                                        $declareMonth = DescriptionMonthIndo($monthStart) . ' ' . $yearStart;
+                                    } else {
+                                        $declareMonth = DescriptionMonthIndo($monthStart) . ' - ' . DescriptionMonthIndo($monthEnd) . ' ' . $yearEnd;
+                                    }
+                                } else {
+                                    $declareMonth = DescriptionMonthIndo($monthStart) . ' ' . $yearStart . ' - ' . DescriptionMonthIndo($monthEnd) . ' ' . $yearEnd;
+                                }
+                                ?>
+                                <tr>
+                                    <td><?= $no++ ?></td>
+                                    <td><?= $bill['description'] ?></td>
+                                    <td><?= FormatRupiah($bill['nominal']) ?></td>
+                                    <td><?= $declareMonth ?></td>
+                                    <td align="center">
+                                        <button type="button" class="btn rounded-pill btn-icon btn-outline-danger" onclick="DeleteDependent('<?= $bill['id'] ?>', '<?= $bill['code_class'] ?>')">
+                                            <span class="tf-icons bx bx-trash"></span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
