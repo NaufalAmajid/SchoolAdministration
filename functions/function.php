@@ -102,3 +102,34 @@ function CompressForm($data = [])
     }
     return $send;
 }
+
+function ExtractCodeBill($codeBill)
+{
+    $cutCodeBill = substr($codeBill, strpos($codeBill, '-') + 1);
+    $cutCodeBill = explode('|', $cutCodeBill);
+    $monthStart = substr($cutCodeBill[0], 4);
+    $monthEnd = substr($cutCodeBill[1], 4);
+    $yearStart = substr($cutCodeBill[0], 0, 4);
+    $yearEnd = substr($cutCodeBill[1], 0, 4);
+    if ($yearStart == $yearEnd) {
+        if ($monthStart == $monthEnd) {
+            $declareMonth = DescriptionMonthIndo($monthStart) . ' ' . $yearStart;
+        } else {
+            $declareMonth = DescriptionMonthIndo($monthStart) . ' - ' . DescriptionMonthIndo($monthEnd) . ' ' . $yearEnd;
+        }
+    } else {
+        $declareMonth = DescriptionMonthIndo($monthStart) . ' ' . $yearStart . ' - ' . DescriptionMonthIndo($monthEnd) . ' ' . $yearEnd;
+    }
+    return $declareMonth;
+}
+
+function ExtractCodeBillEachMountAndYear($codeBill)
+{
+    $cutCodeBill = substr($codeBill, strpos($codeBill, '-') + 1);
+    $cutCodeBill = explode('|', $cutCodeBill);
+    $year  = substr($cutCodeBill[0], 0, 4);
+    $month = explode('_', $cutCodeBill[1]);
+    $output = DescriptionMonthIndo($month[1]) . ' ' . $year;
+    $output2 = $year . '-' . $month[1];
+    return [$output, $output2];
+}

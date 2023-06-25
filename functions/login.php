@@ -11,10 +11,10 @@ $result = mysqli_query($connect, $login);
 $row = mysqli_fetch_assoc($result);
 
 if ($row) {
-    setcookie('code_user', $row['code_users'], time() + 3600, '/');
-    setcookie('username', $row['username'], time() + 3600, '/');
-    setcookie('name', $row['fullname'], time() + 3600, '/');
-    setcookie('role', $row['role'], time() + 3600, '/');
+    setcookie('code_user', $row['code_users'], time() + 86400, '/');
+    setcookie('username', $row['username'], time() + 86400, '/');
+    setcookie('name', $row['fullname'], time() + 86400, '/');
+    setcookie('role', $row['role'], time() + 86400, '/');
     echo json_encode(['status' => 'success']);
 } else {
     echo json_encode(['status' => 'failed', 'message' => 'Username atau password salah']);

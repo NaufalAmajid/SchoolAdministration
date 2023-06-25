@@ -47,3 +47,4 @@ $connect = Connection();
         </div>
     </div>
 </div>
+<script src="functions/js/payment-act.js"></script>

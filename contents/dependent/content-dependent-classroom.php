@@ -85,28 +85,11 @@ $data = explode('#', $_POST['data']);
                             $no = 1;
                             ?>
                             <?php foreach ($exSelectBill as $bill) : ?>
-                                <?php
-                                $cutCodeBill = substr($bill['code_bill'], strpos($bill['code_bill'], '-') + 1);
-                                $cutCodeBill = explode('|', $cutCodeBill);
-                                $monthStart = substr($cutCodeBill[0], 4);
-                                $monthEnd = substr($cutCodeBill[1], 4);
-                                $yearStart = substr($cutCodeBill[0], 0, 4);
-                                $yearEnd = substr($cutCodeBill[1], 0, 4);
-                                if ($yearStart == $yearEnd) {
-                                    if ($monthStart == $monthEnd) {
-                                        $declareMonth = DescriptionMonthIndo($monthStart) . ' ' . $yearStart;
-                                    } else {
-                                        $declareMonth = DescriptionMonthIndo($monthStart) . ' - ' . DescriptionMonthIndo($monthEnd) . ' ' . $yearEnd;
-                                    }
-                                } else {
-                                    $declareMonth = DescriptionMonthIndo($monthStart) . ' ' . $yearStart . ' - ' . DescriptionMonthIndo($monthEnd) . ' ' . $yearEnd;
-                                }
-                                ?>
                                 <tr>
                                     <td><?= $no++ ?></td>
                                     <td><?= $bill['description'] ?></td>
                                     <td><?= FormatRupiah($bill['nominal']) ?></td>
-                                    <td><?= $declareMonth ?></td>
+                                    <td><?= ExtractCodeBill($bill['code_bill']) ?></td>
                                     <td align="center">
                                         <button type="button" class="btn rounded-pill btn-icon btn-outline-danger" onclick="DeleteDependent('<?= $bill['id'] ?>', '<?= $bill['code_class'] ?>')">
                                             <span class="tf-icons bx bx-trash"></span>
