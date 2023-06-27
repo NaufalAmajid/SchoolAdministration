@@ -32,7 +32,7 @@
             <select name="code_class" id="code_class" class="form-control">
                 <option value=""> Pilih Kelas </option>
                 <?php
-                $classroom = ExecuteSelect($connect, "SELECT * FROM classrooms WHERE isactive = '1' ORDER BY name_class ASC");
+                $classroom = ExecuteSelect($connect, "SELECT * FROM classrooms WHERE isactive = '1' ORDER BY name_class, type_class ASC");
                 $rowClassroom = [];
                 foreach ($classroom as $class) {
                     $rowClassroom[$class['name_class']][] = $class;
@@ -66,7 +66,7 @@
                         <th class="text-nowrap text-center">📟 NISN</th>
                         <th class="text-nowrap text-center">📝 Kelas</th>
                         <th class="text-nowrap text-center">📠 Tagihan</th>
-                        <th class="text-nowrap text-center">📇 Status Pembayaran</th>
+                        <th class="text-nowrap text-center">📇 Status</th>
                         <th class="text-nowrap text-center">action</th>
                     </tr>
                 </thead>

@@ -44,3 +44,15 @@ function SearchTransactions() {
     //     }
     // })
 }
+
+function InformationBilling($id){
+    $.ajax({
+        url: "contents/payment-act/content-information-bill.php",
+        type: "POST",
+        data: {id: $id},
+        success: function (data) {
+            $('#modal-payment-act').html(data);
+            $('#modal-payment-act').modal('show');
+        }
+    })
+}

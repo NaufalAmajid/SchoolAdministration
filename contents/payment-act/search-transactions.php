@@ -5,7 +5,8 @@ $connect = Connection();
 
 $sql = "SELECT
         a.id,
-        d.name_student, 
+        d.name_student,
+        d.parent_student, 
         d.nisn_student, 
         CONCAT(c.name_class, '-', c.type_class) AS classroom, 
         b.description, 
@@ -30,18 +31,20 @@ $exec = ExecuteSelect($connect, $sql);
 $data = [];
 
 // content
-$button = '<div class="btn-group" role="group" aria-label="First group">
-            <button type="button" class="btn btn-outline-success">
-            <i class="tf-icons bx bx-credit-card"></i>
-            </button>
-            <button type="button" class="btn btn-outline-info">
-            <i class="tf-icons bx bx-info-circle"></i>
-            </button>
-            <button type="button" class="btn btn-outline-danger">
-            <i class="tf-icons bx bx-trash"></i>
-            </button>
-        </div>';
-$status = function($status) {
+$button = function ($id) {
+    return '<div class="btn-group" role="group" aria-label="First group">
+                <button type="button" class="btn btn-outline-success">
+                <i class="tf-icons bx bx-credit-card"></i>
+                </button>
+                <button type="button" class="btn btn-outline-info" onclick=InformationBilling(' . $id . ')>
+                <i class="tf-icons bx bx-info-circle"></i>
+                </button>
+                <button type="button" class="btn btn-outline-danger">
+                <i class="tf-icons bx bx-trash"></i>
+                </button>
+            </div>';
+};
+$status = function ($status) {
     if ($status == 0) {
         return '<span class="badge bg-danger">Belum Bayar</span>';
     } elseif ($status == 1) {
@@ -52,6 +55,11 @@ $status = function($status) {
         return '<span class="badge bg-secondary">Tidak Diketahui</span>';
     }
 };
+$biil = function ($desc, $year, $month, $nominal) {
+    return '<strong>' . $desc . ' ' . DescriptionMonthIndo($month) . '-' . $year . '</strong>
+            <br>
+            <small class="text-muted">Rp. ' . FormatRupiah($nominal) . '</small>';
+};
 
 foreach ($exec as $value) {
     $data[] = [
@@ -59,9 +67,9 @@ foreach ($exec as $value) {
         "name" => $value['name_student'],
         "nisn" => $value['nisn_student'],
         "class" => $value['classroom'],
-        "bill"  => $value['description'],
+        "bill"  => $biil($value['description'], $value['year'], $value['month'], $value['nominal']),
         "status_bill" => $status($value['status_bill']),
-        "button" => $button
+        "button" => $button($value['id'])
     ];
 }
 

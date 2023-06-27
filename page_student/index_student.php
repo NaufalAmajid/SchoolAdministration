@@ -49,6 +49,13 @@ $connect = Connection();
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../libraries/assets/js/config.js"></script>
     <script src="../libraries/assets/js/sweetalert2@11.js"></script>
+    <style>
+        @media (max-width: 575.98px) {
+            #header-greating {
+                display: none !important;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -75,7 +82,7 @@ $connect = Connection();
                         <!-- Search -->
                         <div class="navbar-nav align-items-center">
                             <div class="nav-item d-flex align-items-center mt-2">
-                                <h3>Selamat Datang, Aplikasi Administrasi Sekolah</h3>
+                                <h3 id="header-greating">Selamat Datang, Aplikasi Administrasi Sekolah</h3>
                             </div>
                         </div>
                         <!-- /Search -->

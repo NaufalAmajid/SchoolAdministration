@@ -48,7 +48,7 @@ if (isset($_COOKIE['code_student'])) {
 
 <body>
     <!-- Content -->
-    <div class="container-xxl col-lg-3">
+    <div class="container-xxl">
         <div class="authentication-wrapper authentication-basic container-p-y">
             <div class="authentication-inner">
                 <!-- Register Card -->

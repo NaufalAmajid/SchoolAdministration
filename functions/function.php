@@ -133,3 +133,69 @@ function ExtractCodeBillEachMountAndYear($codeBill)
     $output2 = $year . '-' . $month[1];
     return [$output, $output2];
 }
+
+function Setting($connect)
+{
+    $sql = "SELECT * FROM settings";
+    $result = mysqli_query($connect, $sql);
+    $row = mysqli_fetch_assoc($result);
+    return $row;
+}
+
+function Denominator($price)
+{
+    $price = abs($price);
+    $angka = array(
+        "",
+        "Satu",
+        "Dua",
+        "Tiga",
+        "Empat",
+        "Lima",
+        "Enam",
+        "Tujuh",
+        "Delapan",
+        "Sembilan",
+        "Sepuluh",
+        "Sebelas"
+    );
+    $temp = "";
+
+    if ($price < 12) {
+        $temp = "" . $angka[$price];
+    } elseif ($price < 20) {
+        $temp = Denominator($price - 10) . " Belas ";
+    } elseif ($price < 100) {
+        $temp = Denominator($price / 10) . " Puluh " . Denominator($price % 10);
+    } elseif ($price < 200) {
+        $temp = " Seratus " . Denominator($price - 100);
+    } elseif ($price < 1000) {
+        $temp = Denominator($price / 100) . " Ratus " . Denominator($price % 100);
+    } elseif ($price < 2000) {
+        $temp = " Seribu " . Denominator($price - 1000);
+    } elseif ($price < 1000000) {
+        $temp = Denominator($price / 1000) . " Ribu " . Denominator($price % 1000);
+    } elseif ($price < 1000000000) {
+        $temp = Denominator($price / 1000000) . " Juta " . Denominator($price % 1000000);
+    } elseif ($price < 1000000000000) {
+        $temp = Denominator($price / 1000000000) . " Milyar " . Denominator(fmod($price, 1000000000));
+    } elseif ($price < 1000000000000000) {
+        $temp = Denominator($price / 1000000000000) . " Trilyun " . Denominator(fmod($price, 1000000000000));
+    }
+
+    return $temp;
+}
+
+function InWord($price)
+{
+    $price = $price == -0 ? 0 : $price;
+
+    if ($price < 0) {
+        $result = " Minus " . trim(Denominator($price));
+    } else if ($price == 0) {
+        $result = " Nol Rupiah ";
+    } else {
+        $result = trim(Denominator($price)) . " Rupiah ";
+    }
+    return $result;
+}

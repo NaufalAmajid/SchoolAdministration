@@ -47,4 +47,5 @@ $connect = Connection();
         </div>
     </div>
 </div>
+<div class="modal fade" id="modal-payment-act" tabindex="-1" aria-hidden="true" data-bs-backdrop="static"></div>
 <script src="functions/js/payment-act.js"></script>
