@@ -20,7 +20,8 @@ $sql = "SELECT
         JOIN classrooms c ON a.code_class = c.code_class 
         JOIN students d ON a.code_student = d.code_student 
         WHERE 
-        a.code_payment LIKE '%$_POST[bill_name]%' 
+        a.status_bill = '$_POST[status]'
+        AND a.code_payment LIKE '%$_POST[bill_name]%' 
         AND a.code_class LIKE '%$_POST[code_class]%' 
         AND (
         d.name_student LIKE '%$_POST[name_student]%' 
@@ -31,9 +32,10 @@ $exec = ExecuteSelect($connect, $sql);
 $data = [];
 
 // content
-$button = function ($id) {
+$button = function ($id, $status) {
+    if($status == '0'){
     return '<div class="btn-group" role="group" aria-label="First group">
-                <button type="button" class="btn btn-outline-success">
+                <button type="button" class="btn btn-outline-success" onclick=PaymentBilling(' . $id . ')>
                 <i class="tf-icons bx bx-credit-card"></i>
                 </button>
                 <button type="button" class="btn btn-outline-info" onclick=InformationBilling(' . $id . ')>
@@ -43,13 +45,21 @@ $button = function ($id) {
                 <i class="tf-icons bx bx-trash"></i>
                 </button>
             </div>';
+    }else{
+        return '<div class="btn-group" role="group" aria-label="First group">
+                <button type="button" class="btn btn-outline-secondary" onclick=PrintBilling(' . $id . ')>
+                <i class="tf-icons bx bx-printer"></i>
+                </button>
+            </div>';
+    }
+
 };
 $status = function ($status) {
     if ($status == 0) {
         return '<span class="badge bg-danger">Belum Bayar</span>';
-    } elseif ($status == 1) {
+    } elseif ($status == 3) {
         return '<span class="badge bg-warning">Menunggu Konfirmasi</span>';
-    } elseif ($status == 2) {
+    } elseif ($status == 1) {
         return '<span class="badge bg-success">Lunas</span>';
     } else {
         return '<span class="badge bg-secondary">Tidak Diketahui</span>';
@@ -69,7 +79,7 @@ foreach ($exec as $value) {
         "class" => $value['classroom'],
         "bill"  => $biil($value['description'], $value['year'], $value['month'], $value['nominal']),
         "status_bill" => $status($value['status_bill']),
-        "button" => $button($value['id'])
+        "button" => $button($value['id'], $value['status_bill'])
     ];
 }
 

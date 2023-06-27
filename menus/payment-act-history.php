@@ -1,111 +1,75 @@
 <!-- TRANSACTIONS -->
-<h5 class="card-header">Riwayat Pembayaran</h5>
+<h5 class="card-header">Riwayat Transaksi</h5>
 <div class="card-body">
-    <span>Silahkan Cari Data Riwayat Berdasarkan Form Dibawah ini.
-        <span class="notificationRequest"><strong>Request Permission</strong></span></span>
-    <div class="error"></div>
+    <span>Silahkan Cari Data Berdasarkan Form Dibawah ini.</span>
 </div>
-<div class="table-responsive">
-    <table class="table table-striped table-borderless border-bottom">
-        <thead>
-            <tr>
-                <th class="text-nowrap">Type</th>
-                <th class="text-nowrap text-center">✉️ Email</th>
-                <th class="text-nowrap text-center">🖥 Browser</th>
-                <th class="text-nowrap text-center">👩🏻‍💻 App</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="text-nowrap">New for you</td>
-                <td>
-                    <div class="form-check d-flex justify-content-center">
-                        <input class="form-check-input" type="checkbox" id="defaultCheck1" checked />
-                    </div>
-                </td>
-                <td>
-                    <div class="form-check d-flex justify-content-center">
-                        <input class="form-check-input" type="checkbox" id="defaultCheck2" checked />
-                    </div>
-                </td>
-                <td>
-                    <div class="form-check d-flex justify-content-center">
-                        <input class="form-check-input" type="checkbox" id="defaultCheck3" checked />
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td class="text-nowrap">Account activity</td>
-                <td>
-                    <div class="form-check d-flex justify-content-center">
-                        <input class="form-check-input" type="checkbox" id="defaultCheck4" checked />
-                    </div>
-                </td>
-                <td>
-                    <div class="form-check d-flex justify-content-center">
-                        <input class="form-check-input" type="checkbox" id="defaultCheck5" checked />
-                    </div>
-                </td>
-                <td>
-                    <div class="form-check d-flex justify-content-center">
-                        <input class="form-check-input" type="checkbox" id="defaultCheck6" checked />
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td class="text-nowrap">A new browser used to sign in</td>
-                <td>
-                    <div class="form-check d-flex justify-content-center">
-                        <input class="form-check-input" type="checkbox" id="defaultCheck7" checked />
-                    </div>
-                </td>
-                <td>
-                    <div class="form-check d-flex justify-content-center">
-                        <input class="form-check-input" type="checkbox" id="defaultCheck8" checked />
-                    </div>
-                </td>
-                <td>
-                    <div class="form-check d-flex justify-content-center">
-                        <input class="form-check-input" type="checkbox" id="defaultCheck9" />
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td class="text-nowrap">A new device is linked</td>
-                <td>
-                    <div class="form-check d-flex justify-content-center">
-                        <input class="form-check-input" type="checkbox" id="defaultCheck10" checked />
-                    </div>
-                </td>
-                <td>
-                    <div class="form-check d-flex justify-content-center">
-                        <input class="form-check-input" type="checkbox" id="defaultCheck11" />
-                    </div>
-                </td>
-                <td>
-                    <div class="form-check d-flex justify-content-center">
-                        <input class="form-check-input" type="checkbox" id="defaultCheck12" />
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-<div class="card-body">
-    <h6>When should we send you TRANSACTIONS?</h6>
-    <form action="javascript:void(0);">
-        <div class="row">
-            <div class="col-sm-6">
-                <select id="sendNotification" class="form-select" name="sendNotification">
-                    <option selected>Only when I'm online</option>
-                    <option>Anytime</option>
-                </select>
-            </div>
-            <div class="mt-4">
-                <button type="submit" class="btn btn-primary me-2">Save changes</button>
-                <button type="reset" class="btn btn-outline-secondary">Discard</button>
-            </div>
+<form id="form-search-history-transactions">
+    <div class="row g-3 mx-3">
+        <div class="col mb-0">
+            <label for="bill_name" class="form-label">Tagihan</label>
+            <select name="bill_name" id="bill_name" class="form-control">
+                <option value="">Pilih Tagihan</option>
+                <?php
+                $dependentSelect = Select($connect, 'payments', ['isactive' => 1]);
+                $typePayment = [];
+                foreach ($dependentSelect as $val) {
+                    $typePayment[$val['type_payment']][] = $val;
+                }
+                foreach ($typePayment as $key => $val) :
+                ?>
+                    <optgroup label="<?= strtoupper($key) ?>" class="text-info">
+                        <?php foreach ($val as $v) : ?>
+                            <option value="<?= $v['code_payment'] ?>" class="text-dark"><?= strtoupper($v['description']) ?> - <?= number_format($v['nominal'], 0, ',', '.') ?></option>
+                        <?php endforeach; ?>
+                    </optgroup>
+                <?php endforeach; ?>
+            </select>
         </div>
-    </form>
+        <div class="col mb-0">
+            <label for="code_class" class="form-label">Kelas</label>
+            <select name="code_class" id="code_class" class="form-control">
+                <option value=""> Pilih Kelas </option>
+                <?php
+                $classroom = ExecuteSelect($connect, "SELECT * FROM classrooms WHERE isactive = '1' ORDER BY name_class, type_class ASC");
+                $rowClassroom = [];
+                foreach ($classroom as $class) {
+                    $rowClassroom[$class['name_class']][] = $class;
+                }
+                ?>
+                <?php foreach ($rowClassroom as $name => $type) : ?>
+                    <optgroup label="<?= $name ?>">
+                        <?php foreach ($type as $val) : ?>
+                            <option value="<?= $val['code_class'] ?>"><?= $val['name_class'] . '-' . $val['type_class'] ?></option>
+                        <?php endforeach; ?>
+                    </optgroup>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        <div class="col mb-0">
+            <label for="name_student" class="form-label">NISN / Nama Siswa</label>
+            <input type="text" name="name_student" class="form-control" placeholder="Masukkan NISN / Nama Siswa ...">
+        </div>
+        <div class="col mb-0 my-5">
+            <button type="button" class="btn btn-info btn-sm align-items-end" id="btn-search-history-trans" onclick="SearchHistoryTransactions()"><i class="bx bx-search"></i> Cari</button>
+        </div>
+    </div>
+</form>
+<div class="row mt-4 mx-2 mb-4">
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered" id="table-history-transactions">
+                <thead>
+                    <tr>
+                        <th class="text-nowrap text-center">🙍🏻‍♂️ Nama Siswa</th>
+                        <th class="text-nowrap text-center">📟 NISN</th>
+                        <th class="text-nowrap text-center">📝 Kelas</th>
+                        <th class="text-nowrap text-center">📠 Tagihan</th>
+                        <th class="text-nowrap text-center">📇 Status</th>
+                        <th class="text-nowrap text-center">action</th>
+                    </tr>
+                </thead>
+                <tbody id="list-transactions"></tbody>
+            </table>
+        </div>
+    </div>
 </div>
-<!-- /TRANSACTIONS -->

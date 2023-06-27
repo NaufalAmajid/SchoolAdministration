@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 25 Jun 2023 pada 16.25
--- Versi server: 10.4.22-MariaDB
--- Versi PHP: 8.1.2
+-- Generation Time: Jun 27, 2023 at 09:23 AM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `billing`
+-- Table structure for table `billing`
 --
 
 CREATE TABLE `billing` (
@@ -35,20 +35,21 @@ CREATE TABLE `billing` (
   `created_by` varchar(20) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `isactive` int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `billing`
+-- Dumping data for table `billing`
 --
 
 INSERT INTO `billing` (`id`, `code_bill`, `code_class`, `code_payment`, `created_by`, `created_at`, `isactive`) VALUES
 (4, 'C04PY01-202306|202308', 'C04', 'PY01', 'USR01', '2023-06-23 23:11:13', 1),
 (5, 'C01PY03-202306|202306', 'C01', 'PY03', 'USR02', '2023-06-25 09:35:09', 1),
 (6, 'C02PY01-202306|202312', 'C02', 'PY01', 'USR02', '2023-06-25 09:49:18', 1),
-(7, 'C02PY04-202306|202306', 'C02', 'PY04', 'USR01', '2023-06-25 19:04:22', 1);
+(7, 'C02PY04-202306|202306', 'C02', 'PY04', 'USR01', '2023-06-25 19:04:22', 1),
+(8, 'C08PY04-202306|202306', 'C08', 'PY04', 'USR02', '2023-06-26 09:54:23', 1);
 
 --
--- Trigger `billing`
+-- Triggers `billing`
 --
 DELIMITER $$
 CREATE TRIGGER `delete_all_transactions` AFTER DELETE ON `billing` FOR EACH ROW BEGIN
@@ -61,7 +62,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `classrooms`
+-- Table structure for table `classrooms`
 --
 
 CREATE TABLE `classrooms` (
@@ -72,10 +73,10 @@ CREATE TABLE `classrooms` (
   `created_by` varchar(20) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `isactive` int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `classrooms`
+-- Dumping data for table `classrooms`
 --
 
 INSERT INTO `classrooms` (`id`, `code_class`, `name_class`, `type_class`, `created_by`, `created_at`, `isactive`) VALUES
@@ -91,7 +92,7 @@ INSERT INTO `classrooms` (`id`, `code_class`, `name_class`, `type_class`, `creat
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `payments`
+-- Table structure for table `payments`
 --
 
 CREATE TABLE `payments` (
@@ -103,10 +104,10 @@ CREATE TABLE `payments` (
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `created_by` varchar(10) NOT NULL,
   `isactive` int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `payments`
+-- Dumping data for table `payments`
 --
 
 INSERT INTO `payments` (`id`, `code_payment`, `type_payment`, `description`, `nominal`, `created_at`, `created_by`, `isactive`) VALUES
@@ -117,7 +118,28 @@ INSERT INTO `payments` (`id`, `code_payment`, `type_payment`, `description`, `no
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `students`
+-- Table structure for table `settings`
+--
+
+CREATE TABLE `settings` (
+  `name_school` varchar(25) NOT NULL,
+  `logo_school` text NOT NULL,
+  `address_school` text NOT NULL,
+  `since_school` varchar(5) NOT NULL,
+  `message_dependent` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `settings`
+--
+
+INSERT INTO `settings` (`name_school`, `logo_school`, `address_school`, `since_school`, `message_dependent`) VALUES
+('SMP SAMPLE 1 SUKOHARJO', '', '', '2000', '\r\nAssalamualaikum Wr. Wb.\r\n\r\nSalam yang terhormat,\r\nBpk/Ibu (parent_student)\r\nSelaku wali murid dari Ananda (name_student) ((nisn_student))\r\nKelas (name_class) Tahun Ajaran (teaching_year)\r\n\r\n                        Kami berharap Anda dalam keadaan sehat dan sejahtera. Melalui pesan ini, kami ingin mengingatkan bahwa pembayaran biaya pendidikan untuk (name_student) belum diselesaikan.\r\nBerikut tagihan yang perlu diselesaikan :\r\n\r\n(content)\r\n\r\n                        Kami mengerti bahwa setiap orang memiliki keterbatasan dan kesibukan masing-masing, namun kami juga mengingatkan bahwa pembayaran ini penting untuk kelancaran kegiatan pendidikan dan peningkatan kualitas pembelajaran bagi (name_student).\r\n\r\n                        Kami sangat menghargai perhatian dan kerjasama Anda dalam menyelesaikan pembayaran ini secepatnya. Jika ada kendala atau pertanyaan terkait pembayaran, kami siap membantu Anda dengan senang hati.\r\n\r\nTerima kasih atas perhatian dan kerjasama Anda.\r\n\r\nWassalamualaikum Wr. Wb.\r\n\r\nHormat kami,\r\n(Administrasi (name_school))');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `students`
 --
 
 CREATE TABLE `students` (
@@ -136,10 +158,10 @@ CREATE TABLE `students` (
   `created_by` varchar(20) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `isactive` int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `students`
+-- Dumping data for table `students`
 --
 
 INSERT INTO `students` (`id`, `code_student`, `code_class`, `code_year`, `name_student`, `nisn_student`, `parent_student`, `phone_student`, `address_student`, `date_birth_student`, `gender_student`, `password`, `created_by`, `created_at`, `isactive`) VALUES
@@ -177,12 +199,17 @@ INSERT INTO `students` (`id`, `code_student`, `code_class`, `code_year`, `name_s
 (32, 'STD331888', 'C07', 'TY02', 'Kairav Laksita', '2611830736', 'Muni Hardiansyah Drs', '(+62) 888 6342 ', 'Ds. Baabur Royan No. 920, Bontang 69331, Maluku', '2015-09-25', '1', '827ccb0eea8a706c4c34a16891f84e7b', 'USR02', '2023-06-23 23:03:31', 1),
 (33, 'STD818635', 'C02', 'TY01', 'Tami Laksita', '2448534877', 'Elvina Adriansyah dr', '0670 7879 300', 'Ki. Bagis Utama No. 613, Prabumulih 54562, Jabar', '1989-12-22', '1', '827ccb0eea8a706c4c34a16891f84e7b', 'USR04', '2023-06-23 23:03:32', 1),
 (34, 'STD843755', 'C08', 'TY01', 'Galang Sihombing', '7233257076', 'Aswani Astuti drg.', '(+62) 572 8365 ', 'Psr. Perintis Kemerdekaan No. 190, Sorong 72462, Kalsel', '2019-03-18', '1', '827ccb0eea8a706c4c34a16891f84e7b', 'USR02', '2023-06-23 23:03:32', 1),
-(35, 'STD786977', 'C07', 'TY02', 'Yahya Rajasa', '2960917251', 'Ayu Kurniawan Ir.', '0292 3254 713', 'Kpg. Daan No. 667, Subulussalam 95668, Kalbar', '1978-03-01', '1', '827ccb0eea8a706c4c34a16891f84e7b', 'USR04', '2023-06-23 23:03:32', 1);
+(35, 'STD786977', 'C07', 'TY02', 'Yahya Rajasa', '2960917251', 'Ayu Kurniawan Ir.', '0292 3254 713', 'Kpg. Daan No. 667, Subulussalam 95668, Kalbar', '1978-03-01', '1', '827ccb0eea8a706c4c34a16891f84e7b', 'USR04', '2023-06-23 23:03:32', 1),
+(36, 'STD183701', 'C03', 'TY01', 'Darmaji Budiman', '7427736089', 'Irma Irawan dr.', '(+62) 664 8287 ', 'Kpg. Padma No. 807, Tomohon 35148, Jambi', '1978-11-09', '2', '827ccb0eea8a706c4c34a16891f84e7b', 'USR02', '2023-06-27 14:03:30', 1),
+(37, 'STD618190', 'C07', 'TY01', 'Sadina Tamba', '2076530527', 'Simon Waluyo drg.', '(+62) 686 4787 ', 'Dk. Cemara No. 458, Tasikmalaya 42708, Kalteng', '1999-07-09', '1', '827ccb0eea8a706c4c34a16891f84e7b', 'USR02', '2023-06-27 14:03:30', 1),
+(38, 'STD425540', 'C01', 'TY02', 'Tina Usamah', '7350816964', 'Nadine Hassanah dr.', '0423 7806 3376', 'Psr. Kyai Gede No. 401, Surakarta 88698, Jambi', '1979-05-02', '2', '827ccb0eea8a706c4c34a16891f84e7b', 'USR03', '2023-06-27 14:03:30', 1),
+(39, 'STD483147', 'C03', 'TY02', 'Hasan Najmudin', '6626344979', 'Johan Saputra H.', '(+62) 609 6529 ', 'Psr. Kartini No. 253, Pekanbaru 53730, DKI', '1971-04-24', '1', '827ccb0eea8a706c4c34a16891f84e7b', 'USR03', '2023-06-27 14:03:38', 1),
+(40, 'STD301207', 'C08', 'TY02', 'Elisa Mardhiyah', '6046001814', 'Lutfan Latupono Drs.', '(+62) 812 611 8', 'Dk. Juanda No. 986, Padangsidempuan 85471, Kaltim', '1970-01-28', '1', '827ccb0eea8a706c4c34a16891f84e7b', 'USR03', '2023-06-27 14:03:38', 1);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `teaching_year`
+-- Table structure for table `teaching_year`
 --
 
 CREATE TABLE `teaching_year` (
@@ -192,10 +219,10 @@ CREATE TABLE `teaching_year` (
   `created_by` varchar(20) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `isactive` int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `teaching_year`
+-- Dumping data for table `teaching_year`
 --
 
 INSERT INTO `teaching_year` (`id`, `code_year`, `description`, `created_by`, `created_at`, `isactive`) VALUES
@@ -205,7 +232,7 @@ INSERT INTO `teaching_year` (`id`, `code_year`, `description`, `created_by`, `cr
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `transactions`
+-- Table structure for table `transactions`
 --
 
 CREATE TABLE `transactions` (
@@ -217,14 +244,14 @@ CREATE TABLE `transactions` (
   `status_bill` int(11) NOT NULL DEFAULT 0,
   `payment_date` datetime NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `transactions`
+-- Dumping data for table `transactions`
 --
 
 INSERT INTO `transactions` (`id`, `code_bill`, `code_payment`, `code_class`, `code_student`, `status_bill`, `payment_date`, `created_at`) VALUES
-(38, 'C04PY01-202306|202308_06', 'PY01', 'C04', 'STD746811', 0, '0000-00-00 00:00:00', '2023-06-23 23:11:13'),
+(38, 'C04PY01-202306|202308_06', 'PY01', 'C04', 'STD746811', 1, '0000-00-00 00:00:00', '2023-06-23 23:11:13'),
 (39, 'C04PY01-202306|202308_07', 'PY01', 'C04', 'STD746811', 0, '0000-00-00 00:00:00', '2023-06-23 23:11:13'),
 (40, 'C04PY01-202306|202308_08', 'PY01', 'C04', 'STD746811', 0, '0000-00-00 00:00:00', '2023-06-23 23:11:13'),
 (41, 'C04PY01-202306|202308_06', 'PY01', 'C04', 'STD110658', 0, '0000-00-00 00:00:00', '2023-06-23 23:11:13'),
@@ -273,12 +300,16 @@ INSERT INTO `transactions` (`id`, `code_bill`, `code_payment`, `code_class`, `co
 (84, 'C02PY04-202306|202306_06', 'PY04', 'C02', 'STD223267', 0, '0000-00-00 00:00:00', '2023-06-25 19:04:22'),
 (85, 'C02PY04-202306|202306_06', 'PY04', 'C02', 'STD554765', 0, '0000-00-00 00:00:00', '2023-06-25 19:04:22'),
 (86, 'C02PY04-202306|202306_06', 'PY04', 'C02', 'STD685510', 0, '0000-00-00 00:00:00', '2023-06-25 19:04:22'),
-(87, 'C02PY04-202306|202306_06', 'PY04', 'C02', 'STD818635', 0, '0000-00-00 00:00:00', '2023-06-25 19:04:22');
+(87, 'C02PY04-202306|202306_06', 'PY04', 'C02', 'STD818635', 0, '0000-00-00 00:00:00', '2023-06-25 19:04:22'),
+(88, 'C08PY04-202306|202306_06', 'PY04', 'C08', 'STD248098', 0, '0000-00-00 00:00:00', '2023-06-26 09:54:23'),
+(89, 'C08PY04-202306|202306_06', 'PY04', 'C08', 'STD267144', 1, '2023-06-27 14:05:39', '2023-06-26 09:54:23'),
+(90, 'C08PY04-202306|202306_06', 'PY04', 'C08', 'STD212962', 1, '0000-00-00 00:00:00', '2023-06-26 09:54:23'),
+(91, 'C08PY04-202306|202306_06', 'PY04', 'C08', 'STD843755', 1, '0000-00-00 00:00:00', '2023-06-26 09:54:23');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -291,10 +322,10 @@ CREATE TABLE `users` (
   `created_by` varchar(20) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `isactive` int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `code_users`, `fullname`, `username`, `password`, `role`, `created_by`, `created_at`, `isactive`) VALUES
@@ -308,27 +339,33 @@ INSERT INTO `users` (`id`, `code_users`, `fullname`, `username`, `password`, `ro
 --
 
 --
--- Indeks untuk tabel `billing`
+-- Indexes for table `billing`
 --
 ALTER TABLE `billing`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `classrooms`
+-- Indexes for table `classrooms`
 --
 ALTER TABLE `classrooms`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `code` (`code_class`);
 
 --
--- Indeks untuk tabel `payments`
+-- Indexes for table `payments`
 --
 ALTER TABLE `payments`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `code payment` (`code_payment`);
 
 --
--- Indeks untuk tabel `students`
+-- Indexes for table `settings`
+--
+ALTER TABLE `settings`
+  ADD PRIMARY KEY (`name_school`);
+
+--
+-- Indexes for table `students`
 --
 ALTER TABLE `students`
   ADD PRIMARY KEY (`id`),
@@ -336,76 +373,76 @@ ALTER TABLE `students`
   ADD KEY `teaching_year` (`code_year`);
 
 --
--- Indeks untuk tabel `teaching_year`
+-- Indexes for table `teaching_year`
 --
 ALTER TABLE `teaching_year`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `code` (`code_year`);
 
 --
--- Indeks untuk tabel `transactions`
+-- Indexes for table `transactions`
 --
 ALTER TABLE `transactions`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `billing`
+-- AUTO_INCREMENT for table `billing`
 --
 ALTER TABLE `billing`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT untuk tabel `classrooms`
+-- AUTO_INCREMENT for table `classrooms`
 --
 ALTER TABLE `classrooms`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT untuk tabel `payments`
+-- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT untuk tabel `students`
+-- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
--- AUTO_INCREMENT untuk tabel `teaching_year`
+-- AUTO_INCREMENT for table `teaching_year`
 --
 ALTER TABLE `teaching_year`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `transactions`
+-- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 
 --
--- AUTO_INCREMENT untuk tabel `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `students`
+-- Constraints for table `students`
 --
 ALTER TABLE `students`
   ADD CONSTRAINT `classrooms` FOREIGN KEY (`code_class`) REFERENCES `classrooms` (`code_class`),

@@ -94,6 +94,26 @@ function DescriptionMonthIndo($month)
     return $monthIndo[$month];
 }
 
+function FormatDateIndo($date)
+{
+    $month = array(
+        1 =>   'Januari',
+        'Februari',
+        'Maret',
+        'April',
+        'Mei',
+        'Juni',
+        'Juli',
+        'Agustus',
+        'September',
+        'Oktober',
+        'November',
+        'Desember'
+    );
+    $explode = explode('-', $date);
+    return $explode[2] . ' ' . $month[(int)$explode[1]] . ' ' . $explode[0];
+}
+
 function CompressForm($data = [])
 {
     $send = [];
