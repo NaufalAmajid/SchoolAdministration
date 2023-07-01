@@ -8,16 +8,17 @@
                         <p class="mb-4">
                             Perhatikan format untuk penambahan nama kelas.
                         </p>
-
-                        <div class="col-7 mb-0">
-                            <div class="input-group">
-                                <input type="text" id="classroom" class="form-control form-control-sm" placeholder="tambah kelas ..." autofocus />
-                                <button class="btn btn-outline-primary btn-sm" type="button" id="button-classroom" onclick="CreateClassroom()">Simpan</button>
+                        <?php if ($_COOKIE['role'] == 'admin') : ?>
+                            <div class="col-7 mb-0">
+                                <div class="input-group">
+                                    <input type="text" id="classroom" class="form-control form-control-sm" placeholder="tambah kelas ..." autofocus />
+                                    <button class="btn btn-outline-primary btn-sm" type="button" id="button-classroom" onclick="CreateClassroom()">Simpan</button>
+                                </div>
+                                <div id="defaultFormControlHelp" class="form-text">
+                                    <i>*format pengisian: kelas-kelompok (contoh: I-A)</i>
+                                </div>
                             </div>
-                            <div id="defaultFormControlHelp" class="form-text">
-                                <i>*format pengisian: kelas-kelompok (contoh: I-A)</i>
-                            </div>
-                        </div>
+                        <?php endif; ?>
                     </div>
                 </div>
                 <div class="col-sm-5 text-center text-sm-left">
@@ -35,7 +36,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Kelas</th>
-                                        <th>Pembuat</th>
+                                        <th>Kode</th>
                                         <th></th>
                                     </tr>
                                 </thead>

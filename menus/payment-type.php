@@ -8,36 +8,38 @@
                     </div>
                 </div>
             </div>
-            <div class="row mb-3">
-                <div class="col-lg-11 mx-5">
-                    <form id="form-payment-type">
-                        <div class="row">
-                            <div class="col-lg-4">
-                                <label for="description" class="form-label">Nama Pembayaran</label>
-                                <input type="text" id="description" name="description" class="form-control" placeholder="nama pembayaran..." autofocus required />
-                            </div>
-                            <div class="col-lg-3">
-                                <label for="type_payment" class="form-label">Tipe Payment</label>
-                                <select name="type_payment" id="type_payment" class="form-control">
-                                    <option value="">- Pilih Tipe Pembayaran -</option>
-                                    <option value="wajib">Wajib</option>
-                                    <option value="optional">Optional</option>
-                                </select>
-                            </div>
-                            <div class="col-lg-2">
-                                <label for="nominal" class="form-label">Nominal</label>
-                                <input type="text" id="nominal" name="nominal" class="form-control" placeholder="nominal..." required />
-                            </div>
-                            <div class="col-lg-2">
-                                <label for="button-save" class="form-label"></label>
-                                <div class="my-1">
-                                    <button type="button" onclick="AddPaymentType()" class="btn btn-info"><span class="tf-icons bx bx-save"></span> Simpan</button>
+            <?php if ($_COOKIE['role'] == 'admin') : ?>
+                <div class="row mb-3">
+                    <div class="col-lg-11 mx-5">
+                        <form id="form-payment-type">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <label for="description" class="form-label">Nama Pembayaran</label>
+                                    <input type="text" id="description" name="description" class="form-control" placeholder="nama pembayaran..." autofocus required />
+                                </div>
+                                <div class="col-lg-3">
+                                    <label for="type_payment" class="form-label">Tipe Payment</label>
+                                    <select name="type_payment" id="type_payment" class="form-control">
+                                        <option value="">- Pilih Tipe Pembayaran -</option>
+                                        <option value="wajib">Wajib</option>
+                                        <option value="optional">Optional</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <label for="nominal" class="form-label">Nominal</label>
+                                    <input type="text" id="nominal" name="nominal" class="form-control" placeholder="nominal..." required />
+                                </div>
+                                <div class="col-lg-2">
+                                    <label for="button-save" class="form-label"></label>
+                                    <div class="my-1">
+                                        <button type="button" onclick="AddPaymentType()" class="btn btn-info"><span class="tf-icons bx bx-save"></span> Simpan</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
-            </div>
+            <?php endif; ?>
             <div class="d-flex align-items-end row">
                 <div class="col-sm-12">
                     <div class="card-body">
@@ -49,7 +51,7 @@
                                         <th>Deskripsi</th>
                                         <th>Tipe Pembayaran</th>
                                         <th>Nominal</th>
-                                        <th>Pembuat</th>
+                                        <th>Kode</th>
                                         <th></th>
                                     </tr>
                                 </thead>

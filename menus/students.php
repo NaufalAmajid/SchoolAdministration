@@ -8,18 +8,19 @@
                         <p class="mb-4">
                             Pastikan mengisi data siswa dengan benar.
                         </p>
-
-                        <div class="row g-2">
-                            <div class="col mb-0">
-                                <a href="javascript:;" class="btn btn-sm btn-outline-primary" onclick="OpenModal('contents/student/form-create-student.php', 'modal-create-student')"><span class="tf-icons bx bx-folder-plus"></span>&nbsp; Tambah Siswa</a>
-                            </div>
-                            <div class="col mb-0">
-                                <div class="input-group" style="margin-left: -130px;">
-                                    <input type="number" class="form-control form-control-sm" id="input-faker-student" placeholder="jumlah yang diiginkan ..."/>
-                                    <button class="btn btn-outline-primary btn-sm" type="button" id="button-addon2" onclick="GenerateFaker()"><i class="bx bx-ghost"></i> Fake Data</button>
+                        <?php if ($_COOKIE['role'] == 'admin') : ?>
+                            <div class="row g-2">
+                                <div class="col mb-0">
+                                    <a href="javascript:;" class="btn btn-sm btn-outline-primary" onclick="OpenModal('contents/student/form-create-student.php', 'modal-create-student')"><span class="tf-icons bx bx-folder-plus"></span>&nbsp; Tambah Siswa</a>
+                                </div>
+                                <div class="col mb-0">
+                                    <div class="input-group" style="margin-left: -130px;">
+                                        <input type="number" class="form-control form-control-sm" id="input-faker-student" placeholder="jumlah yang diiginkan ..." />
+                                        <button class="btn btn-outline-primary btn-sm" type="button" id="button-addon2" onclick="GenerateFaker()"><i class="bx bx-ghost"></i> Fake Data</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        <?php endif; ?>
                     </div>
                 </div>
                 <div class="col-sm-5 text-center text-sm-left">
@@ -40,7 +41,7 @@
                                         <th>Nama Siswa</th>
                                         <th>Kelas</th>
                                         <th>Tahun <br> Ajaran</th>
-                                        <th>Pembuat</th>
+                                        <th>Kode</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -68,7 +69,7 @@
                                             <td><?= $s['name_student'] ?></td>
                                             <td><?= $s['name_class'] . '-' . $s['type_class'] ?></td>
                                             <td><?= $s['description'] ?></td>
-                                            <td><?= $s['fullname'] ?></td>
+                                            <td><?= $s['code_student'] ?></td>
                                             <td>
                                                 <div class="btn-group" role="group">
                                                     <button type="button" class="btn btn-outline-info" onclick="EditStudent('<?= $s['id'] ?>')">

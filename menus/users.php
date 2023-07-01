@@ -66,10 +66,11 @@
                         <p class="mb-4">
                             Menu Manajemen User / Admin.
                         </p>
-
-                        <div class="col mb-0">
-                            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#collapseUsers" aria-expanded="false" aria-controls="collapseUsers"><span class="tf-icons bx bx-user-plus"></span>&nbsp; Tambah User</button>
-                        </div>
+                        <?php if ($_COOKIE['role'] == 'admin') : ?>
+                            <div class="col mb-0">
+                                <button class="btn btn-sm btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#collapseUsers" aria-expanded="false" aria-controls="collapseUsers"><span class="tf-icons bx bx-user-plus"></span>&nbsp; Tambah User</button>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
                 <div class="col-sm-5 text-center text-sm-left">

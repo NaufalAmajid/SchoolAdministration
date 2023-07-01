@@ -8,13 +8,14 @@
                         <p class="mb-4">
                             Menu management Tahun Ajaran.
                         </p>
-
-                        <div class="col-7 mb-0">
-                            <div class="input-group">
-                                <input type="text" id="teaching-year" class="form-control form-control-sm" placeholder="tambah tahun ajaran ..." autofocus />
-                                <button class="btn btn-sm btn-outline-primary" type="button" id="button-teaching-year" onclick="CreateTeachingYear()">Simpan</button>
+                        <?php if ($_COOKIE['role'] == 'admin') : ?>
+                            <div class="col-7 mb-0">
+                                <div class="input-group">
+                                    <input type="text" id="teaching-year" class="form-control form-control-sm" placeholder="tambah tahun ajaran ..." autofocus />
+                                    <button class="btn btn-sm btn-outline-primary" type="button" id="button-teaching-year" onclick="CreateTeachingYear()">Simpan</button>
+                                </div>
                             </div>
-                        </div>
+                        <?php endif; ?>
                     </div>
                 </div>
                 <div class="col-sm-5 text-center text-sm-left">
@@ -32,7 +33,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Deskripsi</th>
-                                        <th>Pembuat</th>
+                                        <th>Kode</th>
                                         <th></th>
                                     </tr>
                                 </thead>

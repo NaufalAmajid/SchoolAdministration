@@ -11,6 +11,7 @@ include 'functions/function.php';
 $menu = $_GET['menu'];
 $subMasterData = ['teachings-year', 'classrooms', 'students', 'payment-type', 'users'];
 $subMenuTransaction = ['dependent', 'payment-act'];
+$subMenuReport = ['report-payment'];
 ?>
 <!DOCTYPE html>
 
@@ -200,25 +201,15 @@ $subMenuTransaction = ['dependent', 'payment-act'];
               </li>
             </ul>
           </li>
-          <li class="menu-item">
+          <li class="menu-item <?= MenuDropdown($subMenuReport) ?>">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
               <i class="menu-icon tf-icons bx bxs-report"></i>
               <div data-i18n="Authentications">Laporan</div>
             </a>
             <ul class="menu-sub">
-              <li class="menu-item">
-                <a href="auth-login-basic.html" class="menu-link" target="_blank">
-                  <div data-i18n="Basic">Login</div>
-                </a>
-              </li>
-              <li class="menu-item">
-                <a href="auth-register-basic.html" class="menu-link" target="_blank">
-                  <div data-i18n="Basic">Register</div>
-                </a>
-              </li>
-              <li class="menu-item">
-                <a href="auth-forgot-password-basic.html" class="menu-link" target="_blank">
-                  <div data-i18n="Basic">Forgot Password</div>
+              <li class="menu-item <?= MenuActive('report-payment') ?>">
+                <a href="?menu=report-payment" class="menu-link">
+                  <div data-i18n="Basic">Laporan</div>
                 </a>
               </li>
             </ul>

@@ -13,7 +13,7 @@ $num     = 1;
         <td><?= $val['description'] ?></td>
         <td><?= strtoupper($val['type_payment']) ?></td>
         <td><?= FormatRupiah($val['nominal']) ?></td>
-        <td><?= $val['fullname'] ?></td>
+        <td><?= $val['code_payment'] ?></td>
         <td>
             <div class="dropdown">
                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
