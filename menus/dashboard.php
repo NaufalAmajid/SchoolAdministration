@@ -38,7 +38,13 @@ $connect = Connection();
                             <small class="text-muted">Jumlah Kelas</small>
                         </div>
                         <div class="user-progress">
-                            <small class="fw-semibold">82.5k</small>
+                            <small class="fw-semibold">
+                                <?php
+                                    $countClass = "SELECT COUNT(code_class) AS totalClass FROM classrooms WHERE isactive = 1";
+                                    $countClass = mysqli_fetch_array(mysqli_query($connect, $countClass));
+                                    echo $countClass['totalClass'];
+                                ?>
+                            </small>
                         </div>
                     </div>
                 </li>
@@ -52,35 +58,13 @@ $connect = Connection();
                             <small class="text-muted">Total Murid</small>
                         </div>
                         <div class="user-progress">
-                            <small class="fw-semibold">23.8k</small>
-                        </div>
-                    </div>
-                </li>
-                <li class="d-flex mb-4 pb-1">
-                    <div class="avatar flex-shrink-0 me-3">
-                        <span class="avatar-initial rounded bg-label-info"><i class="bx bx-home-alt"></i></span>
-                    </div>
-                    <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                        <div class="me-2">
-                            <h6 class="mb-0">Decor</h6>
-                            <small class="text-muted">Fine Art, Dining</small>
-                        </div>
-                        <div class="user-progress">
-                            <small class="fw-semibold">849k</small>
-                        </div>
-                    </div>
-                </li>
-                <li class="d-flex">
-                    <div class="avatar flex-shrink-0 me-3">
-                        <span class="avatar-initial rounded bg-label-secondary"><i class="bx bx-football"></i></span>
-                    </div>
-                    <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                        <div class="me-2">
-                            <h6 class="mb-0">Sports</h6>
-                            <small class="text-muted">Football, Cricket Kit</small>
-                        </div>
-                        <div class="user-progress">
-                            <small class="fw-semibold">99</small>
+                            <small class="fw-semibold">
+                                <?php
+                                    $countStudent = "SELECT COUNT(code_student) AS totalStudent FROM students WHERE isactive = 1";
+                                    $countStudent = mysqli_fetch_array(mysqli_query($connect, $countStudent));
+                                    echo $countStudent['totalStudent'];
+                                ?>
+                            </small>
                         </div>
                     </div>
                 </li>

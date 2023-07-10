@@ -41,6 +41,13 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card-body">
+                        <a class="btn btn-success text-white" download="laporan.xls" onclick="return ExcellentExport.excel(this, 'table-report-payment', 'Laporan');"> <i class="bx bx-file"></i> Simpan ke Excel</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered" id="table-report-payment">
                                 <thead>
@@ -64,32 +71,3 @@
     </div>
 </div>
 <script src="functions/js/report-payment.js"></script>
-<script>
-    $(document).ready(function() {
-        $('#table-report-payment').DataTable({
-            dom: 'Bfrtip',
-            buttons: [{
-                    extend: 'excelHtml5',
-                    title: 'Laporan Pembayaran',
-                    exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5]
-                    }
-                },
-                {
-                    extend: 'pdfHtml5',
-                    title: 'Laporan Pembayaran',
-                    exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5]
-                    }
-                },
-                {
-                    extend: 'print',
-                    title: 'Laporan Pembayaran',
-                    exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5]
-                    }
-                }
-            ]
-        });
-    });
-</script>

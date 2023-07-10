@@ -40,7 +40,7 @@ while ($data = mysqli_fetch_array($sql)) {
         <td><?= FormatRupiah($value['nominal']) ?></td>
     </tr>
 <?php endforeach ?>
-<!-- <tr>
-    <td colspan="5" class="text-right">Total</td>
-    <td><?= FormatRupiah($totalNominal) ?></td>
-</tr> -->
+<tr>
+    <td colspan="5" class="text-right"><b>Total Pembayaran</b></td>
+    <td><b><?= FormatRupiah($totalNominal) ?></b></td>
+</tr>
