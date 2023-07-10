@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 27, 2023 at 09:23 AM
+-- Generation Time: Jul 10, 2023 at 04:19 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -144,7 +144,7 @@ INSERT INTO `settings` (`name_school`, `logo_school`, `address_school`, `since_s
 
 CREATE TABLE `students` (
   `id` int(11) NOT NULL,
-  `code_student` varchar(10) NOT NULL,
+  `code_student` varchar(30) NOT NULL,
   `code_class` varchar(10) NOT NULL,
   `code_year` varchar(10) NOT NULL,
   `name_student` varchar(50) NOT NULL,
@@ -204,7 +204,8 @@ INSERT INTO `students` (`id`, `code_student`, `code_class`, `code_year`, `name_s
 (37, 'STD618190', 'C07', 'TY01', 'Sadina Tamba', '2076530527', 'Simon Waluyo drg.', '(+62) 686 4787 ', 'Dk. Cemara No. 458, Tasikmalaya 42708, Kalteng', '1999-07-09', '1', '827ccb0eea8a706c4c34a16891f84e7b', 'USR02', '2023-06-27 14:03:30', 1),
 (38, 'STD425540', 'C01', 'TY02', 'Tina Usamah', '7350816964', 'Nadine Hassanah dr.', '0423 7806 3376', 'Psr. Kyai Gede No. 401, Surakarta 88698, Jambi', '1979-05-02', '2', '827ccb0eea8a706c4c34a16891f84e7b', 'USR03', '2023-06-27 14:03:30', 1),
 (39, 'STD483147', 'C03', 'TY02', 'Hasan Najmudin', '6626344979', 'Johan Saputra H.', '(+62) 609 6529 ', 'Psr. Kartini No. 253, Pekanbaru 53730, DKI', '1971-04-24', '1', '827ccb0eea8a706c4c34a16891f84e7b', 'USR03', '2023-06-27 14:03:38', 1),
-(40, 'STD301207', 'C08', 'TY02', 'Elisa Mardhiyah', '6046001814', 'Lutfan Latupono Drs.', '(+62) 812 611 8', 'Dk. Juanda No. 986, Padangsidempuan 85471, Kaltim', '1970-01-28', '1', '827ccb0eea8a706c4c34a16891f84e7b', 'USR03', '2023-06-27 14:03:38', 1);
+(40, 'STD301207', 'C08', 'TY02', 'Elisa Mardhiyah', '6046001814', 'Lutfan Latupono Drs.', '(+62) 812 611 8', 'Dk. Juanda No. 986, Padangsidempuan 85471, Kaltim', '1970-01-28', '1', '827ccb0eea8a706c4c34a16891f84e7b', 'USR03', '2023-06-27 14:03:38', 1),
+(41, 'STD2023071', 'C02', 'TY01', 'Test ', '0987654321', 'Mr. Sample', '87623134534', 'Solo', '2020-01-10', '2', '827ccb0eea8a706c4c34a16891f84e7b', 'USR02', '2023-07-10 21:11:10', 1);
 
 -- --------------------------------------------------------
 
@@ -417,7 +418,7 @@ ALTER TABLE `payments`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `teaching_year`
