@@ -1,16 +1,14 @@
 <div class="row">
-    <div class="col-lg-8 mb-4 order-0">
+    <div class="col-lg-12 mb-4 order-0">
         <div class="card">
             <div class="d-flex align-items-end row">
                 <div class="col-sm-7">
                     <div class="card-body">
-                        <h5 class="card-title text-primary">Laporan 🎉</h5>
+                        <h5 class="card-title text-primary">Laporan </h5>
                         <p class="mb-4">
-                            You have done <span class="fw-bold">72%</span> more sales today. Check your new badge in
-                            your profile.
+                            Berikut laporan pembayaran yang telah dilakukan oleh siswa.
+                            berdasarkan <span class="text-success">tanggal pembayaran</span>
                         </p>
-
-                        <a href="javascript:;" class="btn btn-sm btn-outline-primary">View Badges</a>
                     </div>
                 </div>
                 <div class="col-sm-5 text-center text-sm-left">
@@ -19,6 +17,79 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card-body">
+                        <form id="form-search-reporting">
+                            <div class="row g-3">
+                                <div class="col mb-0">
+                                    <label for="first_date" class="form-label">Tanggal Pembayaran</label>
+                                    <input type="date" name="first_date" id="first_date" class="form-control" value="<?= date('Y-m-d') ?>">
+                                </div>
+                                <div class="col mb-0">
+                                    <label for="second_date" class="form-label">&nbsp;</label>
+                                    <input type="date" name="second_date" id="second_date" class="form-control" value="<?= date('Y-m-d') ?>">
+                                </div>
+                                <div class="col mb-0 my-5">
+                                    <button class="btn btn-info btn-sm" type="button" onclick="ViewReport()">Tampilkan</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="table-report-payment">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>NIM</th>
+                                        <th>Nama Murid</th>
+                                        <th>Kelas</th>
+                                        <th>Pembayaran</th>
+                                        <th>Nominal</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="content-report">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+<script src="functions/js/report-payment.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#table-report-payment').DataTable({
+            dom: 'Bfrtip',
+            buttons: [{
+                    extend: 'excelHtml5',
+                    title: 'Laporan Pembayaran',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5]
+                    }
+                },
+                {
+                    extend: 'pdfHtml5',
+                    title: 'Laporan Pembayaran',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5]
+                    }
+                },
+                {
+                    extend: 'print',
+                    title: 'Laporan Pembayaran',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5]
+                    }
+                }
+            ]
+        });
+    });
+</script>

@@ -75,9 +75,11 @@
                                                     <button type="button" class="btn btn-outline-info" onclick="EditStudent('<?= $s['id'] ?>')">
                                                         <i class="tf-icons bx bx-happy-alt"></i>
                                                     </button>
-                                                    <button type="button" class="btn btn-outline-danger" onclick="NonActiveStudent('<?= $s['id'] ?>')">
-                                                        <i class="tf-icons bx bx-trash-alt"></i>
-                                                    </button>
+                                                    <?php if ($_COOKIE['role'] == 'admin') : ?>
+                                                        <button type="button" class="btn btn-outline-danger" onclick="NonActiveStudent('<?= $s['id'] ?>')">
+                                                            <i class="tf-icons bx bx-trash-alt"></i>
+                                                        </button>
+                                                    <?php endif; ?>
                                                 </div>
                                             </td>
                                         </tr>

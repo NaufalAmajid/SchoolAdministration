@@ -67,8 +67,8 @@ $subMenuReport = ['report-payment'];
   <script src="libraries/assets/vendor/libs/datatables/buttons.print.min.js"></script>
   <!-- end datatable -->
   <script src="libraries/assets/js/sweetalert2@11.js"></script>
-  <script src="functions/function.js"></script>
   <script src="libraries/assets/js/ui-toasts.js"></script>
+  <script src="functions/function.js"></script>
 </head>
 
 <body>
@@ -139,7 +139,7 @@ $subMenuReport = ['report-payment'];
         <ul class="menu-inner py-1">
           <!-- Dashboard -->
           <li class="menu-item <?= isset($_GET['menu']) ? '' : 'active' ?>">
-            <a href="index.php" class="menu-link">
+            <a href="index_admin.php" class="menu-link">
               <i class="menu-icon tf-icons bx bx-home-circle"></i>
               <div data-i18n="Analytics">Dashboard</div>
             </a>
@@ -147,7 +147,7 @@ $subMenuReport = ['report-payment'];
           <li class="menu-item <?= MenuDropdown($subMasterData) ?>">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
               <i class="menu-icon tf-icons bx bx-layout"></i>
-              <div data-i18n="Layouts">Master Data</div>
+              <div data-i18n="Layouts"><?= $_COOKIE['role'] == 'kepsek' ? 'List' : 'Master' ?> Data</div>
             </a>
 
             <ul class="menu-sub">
@@ -183,24 +183,26 @@ $subMenuReport = ['report-payment'];
           <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Menu</span>
           </li>
-          <li class="menu-item <?= MenuDropdown($subMenuTransaction) ?>">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-              <i class="menu-icon tf-icons bx bx-credit-card"></i>
-              <div data-i18n="Account Settings">Transaksi</div>
-            </a>
-            <ul class="menu-sub">
-              <li class="menu-item <?= MenuActive('dependent') ?>">
-                <a href="?menu=dependent" class="menu-link">
-                  <div data-i18n="Account">Tanggungan</div>
-                </a>
-              </li>
-              <li class="menu-item <?= MenuActive('payment-act') ?>">
-                <a href="?menu=payment-act&sub=payment-transaction" class="menu-link">
-                  <div data-i18n="Notifications">Pembayaran</div>
-                </a>
-              </li>
-            </ul>
-          </li>
+          <?php if ($_COOKIE['role'] != 'kepsek') : ?>
+            <li class="menu-item <?= MenuDropdown($subMenuTransaction) ?>">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-credit-card"></i>
+                <div data-i18n="Account Settings">Transaksi</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item <?= MenuActive('dependent') ?>">
+                  <a href="?menu=dependent" class="menu-link">
+                    <div data-i18n="Account">Tanggungan</div>
+                  </a>
+                </li>
+                <li class="menu-item <?= MenuActive('payment-act') ?>">
+                  <a href="?menu=payment-act&sub=payment-transaction" class="menu-link">
+                    <div data-i18n="Notifications">Pembayaran</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          <?php endif; ?>
           <li class="menu-item <?= MenuDropdown($subMenuReport) ?>">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
               <i class="menu-icon tf-icons bx bxs-report"></i>
@@ -270,7 +272,7 @@ $subMenuReport = ['report-payment'];
                       </div>
                     </a>
                   </li>
-                  <li>
+                  <!-- <li>
                     <div class="dropdown-divider"></div>
                   </li>
                   <li>
@@ -287,7 +289,7 @@ $subMenuReport = ['report-payment'];
                   </li>
                   <li>
                     <div class="dropdown-divider"></div>
-                  </li>
+                  </li> -->
                   <li>
                     <a class="dropdown-item" href="functions/logout.php">
                       <i class="bx bx-power-off me-2"></i>

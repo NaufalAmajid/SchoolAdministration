@@ -17,10 +17,12 @@ $num     = 1;
                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                     <i class="bx bx-dots-vertical-rounded"></i>
                 </button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="javascript:void(0);" onclick="EditClassroom('<?= $val['id'] ?>', '<?= $val['name_class'] . '-' . $val['type_class'] ?>')"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-                    <a class="dropdown-item" href="javascript:void(0);" onclick="DeleteClassroom('<?= $val['id'] ?>')"><i class="bx bx-trash me-1"></i> Delete</a>
-                </div>
+                <?php if ($_COOKIE['role'] == 'admin') : ?>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="javascript:void(0);" onclick="EditClassroom('<?= $val['id'] ?>', '<?= $val['name_class'] . '-' . $val['type_class'] ?>')"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+                        <a class="dropdown-item" href="javascript:void(0);" onclick="DeleteClassroom('<?= $val['id'] ?>')"><i class="bx bx-trash me-1"></i> Delete</a>
+                    </div>
+                <?php endif; ?>
             </div>
         </td>
     </tr>

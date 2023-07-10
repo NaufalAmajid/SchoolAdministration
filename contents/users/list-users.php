@@ -13,9 +13,11 @@ $num     = 1;
         <td><?= $val['fullname'] ?></td>
         <td><?= strtoupper($val['role']) ?></td>
         <td>
-            <button type="button" class="btn rounded-pill btn-icon btn-outline-danger btn-sm" onclick="NonActiveUser('<?= $val['id'] ?>')">
-                <span class="tf-icons bx bx-user-x"></span>
-            </button>
+            <?php if ($_COOKIE['role'] == 'admin') : ?>
+                <button type="button" class="btn rounded-pill btn-icon btn-outline-danger btn-sm" onclick="NonActiveUser('<?= $val['id'] ?>')">
+                    <span class="tf-icons bx bx-user-x"></span>
+                </button>
+            <?php endif; ?>
         </td>
     </tr>
 <?php endforeach; ?>

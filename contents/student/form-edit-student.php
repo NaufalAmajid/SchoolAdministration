@@ -102,7 +102,9 @@ $row = mysqli_fetch_array($execute);
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="button-cancel-modal-student">
                     Batal
                 </button>
-                <button type="button" class="btn btn-primary" onclick="UpdateStudent('<?= $row['id'] ?>')"><i class="bx bx-share"></i> Update</button>
+                <?php if ($_COOKIE['role'] == 'admin') : ?>
+                    <button type="button" class="btn btn-primary" onclick="UpdateStudent('<?= $row['id'] ?>')"><i class="bx bx-share"></i> Update</button>
+                <?php endif; ?>
             </div>
         </form>
     </div>
