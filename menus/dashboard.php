@@ -20,7 +20,7 @@ $connect = Connection();
                                         JOIN payments d ON a.code_payment = d.code_payment 
                                     WHERE
                                         a.status_bill = 1
-                                        AND MONTH(a.created_at) = MONTH(NOW())";
+                                        AND MONTH(a.payment_date) = MONTH(NOW())";
                         $payment = mysqli_fetch_array(mysqli_query($connect, $payment));
                     ?>
                     <h2 class="mb-2"><?= FormatRupiah($payment['total_payment']) ?></h2>

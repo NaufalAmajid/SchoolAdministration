@@ -17,8 +17,9 @@ $query = "SELECT
             JOIN classrooms c ON a.code_class = c.code_class
             JOIN payments d ON a.code_payment = d.code_payment 
             WHERE
-            a.status_bill = 1 AND
-            a.created_at BETWEEN '$_POST[first_date]' AND '$_POST[second_date]'";
+            a.status_bill = 1 
+            AND CAST(a.payment_date AS DATE) BETWEEN CAST('$_POST[first_date]' AS DATE) 
+	        AND CAST('$_POST[second_date]' AS DATE)";
 $sql = mysqli_query($connect, $query);
 $row = [];
 $no = 1;
