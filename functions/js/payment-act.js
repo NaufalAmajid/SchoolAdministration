@@ -122,3 +122,18 @@ function PaymentBilling(id) {
 function PrintBilling(id) {
     window.open('printing/print_kwitansi.php?id=' + id, 'Pembayaran', 'width=800,height=600');
 }
+
+function SendWhatsapp(phone) {
+    var msg = $('#message_info').val();
+    $.ajax({
+        url: "contents/payment-act/send-whatsapp-message.php",
+        type: "POST",
+        data: {
+            phone: phone,
+            msg: msg
+        },
+        success: function (data) {
+            console.log(data);
+        }
+    })
+}

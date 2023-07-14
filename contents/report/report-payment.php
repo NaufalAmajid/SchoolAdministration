@@ -5,6 +5,8 @@ $connect = Connection();
 
 $query = "SELECT
             a.payment_date,
+            SUBSTRING_INDEX(a.code_bill, '_',-1) AS month,
+            SUBSTR(SUBSTRING_INDEX(a.code_bill, '|',-1), 1,4) AS year,
             b.name_student,
             b.nisn_student,
             d.description,
@@ -37,7 +39,7 @@ while ($data = mysqli_fetch_array($sql)) {
         <td><?= $value['nisn_student'] ?></td>
         <td><?= $value['name_student'] ?></td>
         <td><?= $value['classroom'] ?></td>
-        <td><?= $value['description'] ?></td>
+        <td><b><?= $value['description'] ?> <?= DescriptionMonthIndo($value['month']) . '-' . $value['year'] ?></b></td>
         <td><?= FormatRupiah($value['nominal']) ?></td>
     </tr>
 <?php endforeach ?>

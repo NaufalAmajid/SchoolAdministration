@@ -5,23 +5,25 @@ $connect = Connection();
 $setting = Setting($connect);
 $query = "SELECT
             a.id,
+            d.code_student,
             d.name_student,
-            d.parent_student, 
-            d.nisn_student, 
-            CONCAT(c.name_class, '-', c.type_class) AS classroom, 
-            b.description AS name_bill, 
-            b.nominal, 
+            d.parent_student,
+            d.phone_student,
+            d.nisn_student,
+            CONCAT( c.name_class, '-', c.type_class ) AS classroom,
+            b.description AS name_bill,
+            b.nominal,
             e.description AS ty,
-            SUBSTRING_INDEX(a.code_bill, '_',-1) AS month,
-            SUBSTR(SUBSTRING_INDEX(a.code_bill, '|',-1), 1,4) AS year,
-            a.status_bill
-            FROM 
-            transactions a 
-            JOIN payments b ON a.code_payment = b.code_payment 
-            JOIN classrooms c ON a.code_class = c.code_class 
+            SUBSTRING_INDEX( a.code_bill, '_',- 1 ) AS month,
+            SUBSTR( SUBSTRING_INDEX( a.code_bill, '|',- 1 ), 1, 4 ) AS year,
+            a.status_bill 
+            FROM
+            transactions a
+            JOIN payments b ON a.code_payment = b.code_payment
+            JOIN classrooms c ON a.code_class = c.code_class
             JOIN students d ON a.code_student = d.code_student
             JOIN teaching_year e ON d.code_year = e.code_year 
-            WHERE 
+            WHERE
             a.id = '$_POST[id]'";
 $sql = mysqli_query($connect, $query);
 $exec = mysqli_fetch_assoc($sql);
@@ -60,7 +62,7 @@ $exec = mysqli_fetch_assoc($sql);
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="button-cancel-modal-student">
                     Batal
                 </button>
-                <button type="button" class="btn btn-success" onclick="SendWhatsapp()"><i class="bx bx-mail-send"></i> Kirim WhatsApp</button>
+                <button type="button" class="btn btn-success" onclick="SendWhatsapp('<?= $exec['phone_student'] ?>')"><i class="bx bx-mail-send"></i> Kirim WhatsApp</button>
             </div>
         </form>
     </div>

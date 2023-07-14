@@ -238,3 +238,29 @@ function InWord($price)
     }
     return $result;
 }
+
+function SendWhatsApp($phone, $message)
+{
+    $url = "https://alvochat.com/request/post.php";
+
+    $curl = curl_init($url);
+    curl_setopt($curl, CURLOPT_URL, $url);
+    curl_setopt($curl, CURLOPT_POST, true);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+    $headers = array(
+        "Content-Type: application/x-www-form-urlencoded",
+    );
+    curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+    // number=85725146075&full_number=%2B6285725146075&message=aaaa&create_link=
+    $data = "number=$phone&full_number=%2B62$phone&message=$message&create_link=";
+
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+
+    $resp = curl_exec($curl);
+    $result = json_decode($resp, true);
+
+    $r = $result['success'];
+    curl_close($curl);
+    return $r;
+}
